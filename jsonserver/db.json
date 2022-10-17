@@ -1,0 +1,94 @@
+{
+    "wizkid": [
+        {
+            "_id": "634d583d6b8ff482c730d8e2",
+            "index": 0,
+            "picture": "https://picsum.photos/id/1050/200",
+            "name": "Graham Heath",
+            "email": "grahamheath@qot.com",
+            "phone": "+1 (999) 503-3632",
+            "role": "intern"
+        },
+        {
+            "_id": "634d583d6a5e3f1ad809fa66",
+            "index": 1,
+            "picture": "https://picsum.photos/id/1051/200",
+            "name": "Christian Hammond",
+            "email": "christianhammond@qot.com",
+            "phone": "+1 (880) 496-2140",
+            "role": "developer"
+        },
+        {
+            "_id": "634d583de373d532df3f046e",
+            "index": 2,
+            "picture": "https://picsum.photos/id/1052/200",
+            "name": "Bentley Dodson",
+            "email": "bentleydodson@qot.com",
+            "phone": "+1 (822) 592-2767",
+            "role": "boss"
+        },
+        {
+            "_id": "634d583d2a2df5f633872035",
+            "index": 3,
+            "picture": "https://picsum.photos/id/1053/200",
+            "name": "Simpson Dixon",
+            "email": "simpsondixon@qot.com",
+            "phone": "+1 (857) 477-2015",
+            "role": "designer"
+        },
+        {
+            "_id": "634d583d11dd80f176a007fe",
+            "index": 4,
+            "picture": "https://picsum.photos/id/1054/200",
+            "name": "Chasity Freeman",
+            "email": "chasityfreeman@qot.com",
+            "phone": "+1 (960) 552-3901",
+            "role": "boss"
+        },
+        {
+            "_id": "634d583d427888fd647ce0f3",
+            "index": 5,
+            "picture": "https://picsum.photos/id/1055/200",
+            "name": "Colleen Harrison",
+            "email": "colleenharrison@qot.com",
+            "phone": "+1 (919) 588-3443",
+            "role": "designer"
+        },
+        {
+            "_id": "634d583d6ca11e81b2193218",
+            "index": 6,
+            "picture": "https://picsum.photos/id/1056/200",
+            "name": "Knowles Lloyd",
+            "email": "knowleslloyd@qot.com",
+            "phone": "+1 (837) 502-2359",
+            "role": "boss"
+        },
+        {
+            "_id": "634d583d66df8b8e41f5f033",
+            "index": 7,
+            "picture": "https://picsum.photos/id/1057/200",
+            "name": "Jimenez Mcintyre",
+            "email": "jimenezmcintyre@qot.com",
+            "phone": "+1 (965) 589-2680",
+            "role": "developer"
+        },
+        {
+            "_id": "634d583d46aeb3e0b1b81c5f",
+            "index": 8,
+            "picture": "https://picsum.photos/id/1058/200",
+            "name": "Sara Lopez",
+            "email": "saralopez@qot.com",
+            "phone": "+1 (997) 591-3669",
+            "role": "designer"
+        },
+        {
+            "_id": "634d583dbdb86b1e651c72e5",
+            "index": 9,
+            "picture": "https://picsum.photos/id/1059/200",
+            "name": "Vera Sosa",
+            "email": "verasosa@qot.com",
+            "phone": "+1 (988) 461-3386",
+            "role": "intern"
+        }
+    ]
+}
