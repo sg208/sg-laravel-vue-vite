@@ -3,13 +3,14 @@
         <h1 class="text-2xl font-bold">{{ heading }}</h1>
     </div>
     <div v-if="isHomepage" class="flex flex-col w-1/2">
-        <router-link
+        <ButtonAndLink
             to="/add"
-            class="bg-green-600 py-2 px-4 text-white rounded-lg self-end"
+            text="Wizkid"
+            classes="bg-green-700 self-end"
             role="button"
-        >
-            Add new wizkid
-        </router-link>
+            icon="fa-regular fa-square-plus"
+            aria-label="Add new wizkid"
+        />
     </div>
 </template>
 

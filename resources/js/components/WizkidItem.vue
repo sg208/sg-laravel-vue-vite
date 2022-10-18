@@ -1,7 +1,9 @@
 <template>
-    <li class="border-2 rounded-lg bg-gray-50 p-3 flex flex-row gap-3">
+    <li
+        class="border-2 rounded-lg bg-gray-50 p-3 flex flex-col lg:flex-row gap-3"
+    >
         <span class="flex flex-wrap justify-center">
-            <span class="w-20">
+            <span class="lg:w-20">
                 <WizkidPicture
                     :picture="item.picture"
                     :text="`Picture of ${item.name}`"
@@ -12,46 +14,30 @@
             <span role="heading" aria-level="3" class="font-bold text-lg pb-2">
                 {{ item.name }}
             </span>
-            <span class="flex flex-row gap-2 text-md" role="list">
-                <span
-                    v-if="item.role"
-                    class="px-2 py-1 bg-white rounded-lg border-2"
-                    role="listitem"
-                >
-                    {{ item.role }}
-                </span>
-                <span
-                    v-if="item.email"
-                    class="px-2 py-1 bg-white rounded-lg border-2"
-                    role="listitem"
-                >
-                    {{ item.email }}
-                </span>
-                <span
-                    v-if="item.phone"
-                    class="px-2 py-1 bg-white rounded-lg border-2"
-                >
-                    {{ item.phone }}
+            <span
+                class="flex flex-col lg:flex-row lg:grow gap-2 text-md"
+                role="list"
+            >
+                <WizkidItemPills :item="item.role" />
+                <WizkidItemPills :item="item.email" />
+                <WizkidItemPills :item="item.phone" />
+                <span class="flex flex-row my-auto lg:self-end">
+                    <ButtonAndLink
+                        to="/update"
+                        classes="self-end text-blue-700"
+                        :aria-label="`Update ${item.name} data`"
+                        role="button"
+                        icon="fa-solid fa-pen-to-square"
+                    />
+                    <ButtonAndLink
+                        to="/delete"
+                        classes="self-end text-blue-700"
+                        :aria-label="`Delete ${item.name} data`"
+                        role="button"
+                        icon="fa-solid fa-trash-can"
+                    />
                 </span>
             </span>
-        </span>
-        <span class="flex flex-row my-auto gap-2">
-            <router-link
-                to="/update"
-                class="bg-orange-500 text-white py-1 px-3 rounded-lg self-end"
-                :aria-label="`Update ${item.name} data`"
-                role="button"
-            >
-                Update
-            </router-link>
-            <router-link
-                to="/delete"
-                class="bg-red-500 py-1 px-3 text-white rounded-lg self-end"
-                :aria-label="`Delete ${item.name} data`"
-                role="button"
-            >
-                Delete
-            </router-link>
         </span>
     </li>
 </template>

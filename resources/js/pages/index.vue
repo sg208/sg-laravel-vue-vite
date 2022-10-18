@@ -4,6 +4,7 @@
         <div class="flex flex-row w-full">
             <ListHeader heading="Wizkids" />
         </div>
+        <h2 class="sr-only">List of all wizkids</h2>
         <ul class="flex flex-col space-y-5 pt-6">
             <WizkidItem
                 v-for="wizkid in wizkidsData"

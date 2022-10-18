@@ -1,6 +1,6 @@
 <template>
     <div id="content-container" class="flex flex-col p-0 m-0 flex-nowrap">
-        <Header class="w-full bg-blue-400 p-6" />
+        <Header class="w-full bg-blue-600 p-6" />
         <main role="main" class="grow h-full w-full max-w-5xl p-6 mx-auto">
             <router-view />
         </main>
