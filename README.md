@@ -10,14 +10,14 @@ Wizkid Manager 2000 is an application that is focused on managing wizkids. The a
 -   Vue 3
 -   Vite
 -   Tailwind CSS
--   JSON Server, for local data source replacement
+-   JSON Server, alternative option for data replacement
 
 ## Installation (Windows 10 Only)
 
 This application can be run locally in your Windows 10 machine, please follow the following for installation after you clone the repo:
 
 1. Download [XAMPP](https://www.apachefriends.org/) for Windows then Install it on your Windows 10 computer.
-2. Download [Composer](https://getcomposer.org/download/) (Composer-Setup.exe) then install it.
+2. Download [Composer](https://getcomposer.org/download/) (Composer-Setup.exe) then install it (skip if already installed).
 3. Go to the directory for this application, then run `npm install` to install packages.
 4. Install `json-server` globally to your machine with `npm install -g json-server` (skip if already installed).
 5. Install `concurrently` globally to your machine with `npm install -g concurrently` (skip if already installed).
