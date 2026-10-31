@@ -15,7 +15,7 @@
 </template>
 
 <script setup>
-import { onMounted } from "@vue/runtime-core";
+import { onMounted } from "vue";
 import useWizkid from "./../composables/useWizkid";
 
 const { isFetching, getWizkidsData, wizkidsData, errorMsg } = useWizkid();
