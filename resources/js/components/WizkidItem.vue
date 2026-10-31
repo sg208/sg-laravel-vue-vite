@@ -12,7 +12,7 @@
             <span role="heading" aria-level="3" class="font-bold text-lg pb-2">
                 {{ item.name }}
             </span>
-            <span class="flex flex-row gap-2 text-md" role="list">
+            <span class="flex flex-row flex-wrap gap-2 text-md" role="list">
                 <span
                     v-if="item.role"
                     class="px-2 py-1 bg-white rounded-lg border-2"
@@ -30,6 +30,7 @@
                 <span
                     v-if="item.phone"
                     class="px-2 py-1 bg-white rounded-lg border-2"
+                    role="listitem"
                 >
                     {{ item.phone }}
                 </span>
@@ -38,17 +39,15 @@
         <span class="flex flex-row my-auto gap-2">
             <router-link
                 to="/update"
-                class="bg-orange-500 text-white py-1 px-3 rounded-lg self-end"
+                class="bg-orange-800 text-white py-1 px-3 rounded-lg self-end"
                 :aria-label="`Update ${item.name} data`"
-                role="button"
             >
                 Update
             </router-link>
             <router-link
                 to="/delete"
-                class="bg-red-500 py-1 px-3 text-white rounded-lg self-end"
+                class="bg-red-700 py-1 px-3 text-white rounded-lg self-end"
                 :aria-label="`Delete ${item.name} data`"
-                role="button"
             >
                 Delete
             </router-link>

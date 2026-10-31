@@ -1,10 +1,15 @@
 <template>
-    <div v-if="isFetching">Fetching data, please wait ...</div>
-    <div v-else class="text">
+    <div role="status" aria-live="polite">
+        <template v-if="isFetching">Fetching data, please wait ...</template>
+    </div>
+    <div v-if="!isFetching" class="text">
         <div class="flex flex-row w-full">
             <ListHeader heading="Wizkids" />
         </div>
-        <ul class="flex flex-col space-y-5 pt-6">
+        <p v-if="errorMsg" role="alert" class="pt-6 text-red-700">
+            {{ errorMsg }}
+        </p>
+        <ul v-else-if="wizkidsData?.length" class="flex flex-col space-y-5 pt-6">
             <WizkidItem
                 v-for="wizkid in wizkidsData"
                 :key="wizkid._id"
