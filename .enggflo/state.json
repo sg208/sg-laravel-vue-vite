@@ -1,0 +1,27 @@
+{
+  "last_sha": "e0bd24ce6b4e8a5b73b3814875c924a6c2abff3e",
+  "run_date": "2026-10-31",
+  "fingerprints": {
+    "AGENTS.md": "abd09cf9783e895d0a9ebe2633f31140e5462956862ec736d7c4c7e46ca4018d",
+    "README.md": "91c545aebcd49c7bff3e7deecd5a36a7217289f5c5894178d1542ff5bf25923e",
+    "CLAUDE.md": "336cc4fbf19beaada7ccf9986414fa91851a8d7a07dfb3ccbe800a69eed0ab49",
+    ".enggflo/learning.md": "030621c983133c03f4bc228c53213a860b27aaa5c6c48eedfe29361ba109ec7e",
+    ".enggflo/brain.md": "6bd59420c702bf4c9f733910cbbad6d660e6226ac970e7d31d0600b5bd65d997"
+  },
+  "llms_txt": {
+    "vue": "https://vuejs.org/llms.txt",
+    "vue-router": "https://router.vuejs.org/llms.txt",
+    "vite": "https://vite.dev/llms.txt",
+    "@vitejs/plugin-vue": null,
+    "laravel-vite-plugin": null,
+    "autoprefixer": null,
+    "unplugin-auto-import": null,
+    "vite-auto-import-resolvers": null,
+    "vite-plugin-pages": null,
+    "postcss": null,
+    "unplugin-vue-components": null,
+    "tailwindcss": null,
+    "lodash": null,
+    "axios": null
+  }
+}
