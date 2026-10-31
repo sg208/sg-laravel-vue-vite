@@ -1,12 +1,12 @@
 {
-  "last_sha": "e0bd24ce6b4e8a5b73b3814875c924a6c2abff3e",
+  "last_sha": "c74b79ff958e77ec382cdfe7147758787ab47e39",
   "run_date": "2026-10-31",
   "fingerprints": {
-    "AGENTS.md": "abd09cf9783e895d0a9ebe2633f31140e5462956862ec736d7c4c7e46ca4018d",
-    "README.md": "91c545aebcd49c7bff3e7deecd5a36a7217289f5c5894178d1542ff5bf25923e",
+    "AGENTS.md": "1befa2cb9868a054902b4c4d2970b2c55725b63e1aced8e62fcc8af2b2619606",
+    "README.md": "178f7b2ef14e0ca92ac573bdb045ea28c51e424932db858cf1fcacfae81763a0",
     "CLAUDE.md": "336cc4fbf19beaada7ccf9986414fa91851a8d7a07dfb3ccbe800a69eed0ab49",
     ".enggflo/learning.md": "030621c983133c03f4bc228c53213a860b27aaa5c6c48eedfe29361ba109ec7e",
-    ".enggflo/brain.md": "6bd59420c702bf4c9f733910cbbad6d660e6226ac970e7d31d0600b5bd65d997"
+    ".enggflo/brain.md": "ce9d3d694d236d5ff5a56f1bcd12eb6824bb9c6a51d495f0d63353c7dd4954a2"
   },
   "llms_txt": {
     "vue": "https://vuejs.org/llms.txt",

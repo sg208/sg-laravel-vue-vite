@@ -7,9 +7,10 @@ Wizkid Manager 2000 is an application that is focused on managing wizkids. The a
 ## Stacks
 
 -   Laravel 9
--   Vue 3
--   Vite
--   Tailwind CSS
+-   Vue 3.5 and Vue Router 5
+-   Vite 8
+-   Tailwind CSS 4
+-   pnpm and Vitest
 -   JSON Server, for local data source replacement
 
 ## Installation (Windows 10 Only)
@@ -30,6 +31,11 @@ This application can be run locally in your Windows 10 machine, please follow th
     - Terminal 1 > Run `php artisan serve` to run Laravel locally
     - Terminal 2 > Run `pnpm dev2` to run Vue SPA locally with JSON server as your local API instead of Laravel
 3. Go to your browser and open `localhost:8000`
+
+## Tests
+
+-   `pnpm test` runs the Vitest suite in `tests/js`.
+-   `pnpm build` builds the front end to `public/build`.
 
 ## License
 

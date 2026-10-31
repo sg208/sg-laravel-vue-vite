@@ -5,15 +5,18 @@
 ## Project
 
 - WHAT: "Wizkid Manager 2000" demo: Laravel 9 shell serving a Vue 3 SPA (list/add/update/delete wizkids) with Tailwind; data from a local JSON Server mock (`README.md:1-5`).
-- STATE: unmaintained since 2022-10; Laravel side is the stock skeleton (`routes/web.php` serves `welcome` view only, no wizkid API).
+- STATE: JS side updated 2026-10-31 (Vite 8, Vue 3.5, Tailwind 4, pnpm); Laravel 9 untouched (`.backlog/`); Laravel side is the stock skeleton (`routes/web.php` serves `welcome` view only, no wizkid API).
 - BRANCHES: `main` (default) · `develop` (work branch) · `master` (legacy, kept) · remote `versiontwo`. PR/branch convention: no enforced convention observed.
 
 ## Commands
 
-- `npm install` — JS deps (`package-lock.json`)
-- `npm run dev` — Vite dev server (`package.json:4`)
-- `npm run dev2` — JSON Server :8080 + Vite; needs global `json-server` + `concurrently` (`package.json:5`)
-- `npm run build` — Vite production build to `public/build` (`package.json:6`)
+- `source ~/.nvm/nvm.sh && nvm use 24` — Node 24 (`.node-version:1`) before pnpm
+- `pnpm install` — JS deps (`pnpm-lock.yaml`, `packageManager` in `package.json`)
+- `pnpm dev` — Vite dev server
+- `pnpm dev2` — JSON Server :8080 + Vite (both local devDeps)
+- `pnpm build` — Vite production build to `public/build` (gitignored)
+- `pnpm test` — Vitest (`vitest.config.js`, `tests/js/*.test.js`)
+- `pnpm audit --audit-level high` — must report no high/critical
 - `composer install && php artisan serve` — Laravel on :8000 (composer not verified in this env)
 - `vendor/bin/phpunit` — PHP example tests (`phpunit.xml`)
 
@@ -22,11 +25,11 @@
 | concept | path |
 |---|---|
 | SPA entry | `resources/js/app.js` → mounts `App.vue` on `#app` in `resources/views/welcome.blade.php` |
-| routes (file-based) | `resources/js/pages/*.vue` via `vite-plugin-pages` (`vite.config.js:30`), router `resources/js/router.js` |
-| components (auto-imported) | `resources/js/components/` via `unplugin-vue-components` (`vite.config.js:33`) |
+| routes (file-based) | `resources/js/pages/*.vue` via `vite-plugin-pages` (`vite.config.js`), router `resources/js/router.js` |
+| components (auto-imported) | `resources/js/components/` via `unplugin-vue-components` (`vite.config.js`) |
 | data access | `resources/js/composables/useWizkid.js` (fetches `http://localhost:8080/api/wizkid`) |
 | mock API | `jsonserver/db.json` + `jsonserver/routes.json` |
-| styles | `resources/css/app.css` · `tailwind.config.js` · `postcss.config.js` |
+| styles | `resources/css/app.css` (Tailwind 4 via `@tailwindcss/vite`, `@source` globs) |
 | Laravel | `app/` · `routes/` · `config/` · `database/` |
 
 - CI/CD: none (no `.github/workflows/`).
@@ -35,24 +38,29 @@
 
 | field | value |
 |---|---|
-| runner | PHPUnit (`phpunit.xml`); no JS test runner |
-| command | `vendor/bin/phpunit` |
-| conventions | `tests/Unit/*Test.php` · `tests/Feature/*Test.php` (Laravel example tests only) |
-| levels | unit ✓ (example) · integration ✗ · e2e ✗ |
+| runner | Vitest + @vue/test-utils + happy-dom (JS) · PHPUnit (PHP) |
+| command | `pnpm test` · `vendor/bin/phpunit` |
+| conventions | `tests/js/*.test.js` (composables, components with `RouterLinkStub`) · `tests/Unit|Feature/*Test.php` (Laravel examples) |
+| levels | unit ✓ · integration ✗ · e2e ✗ |
 | enforced_by | unverified (no CI) |
 
 ## Gotchas
 
 - `resources/js/composables/useWizkid.js:9` — API URL hardcoded to JSON Server on localhost:8080.
 - `resources/js/bootstrap.js` — not imported by `app.js`; axios/lodash unused at runtime.
-- `.node-version:1` — pins Node 16.15.0.
+- `package.json` `"type": "module"` — config files are ESM; a CommonJS config needs `.cjs`.
+- `package.json` `pnpm.overrides` — patched rollup 2, nanoid 3, picomatch 2 for audit; drop once upstream deps move.
+- pnpm does not hoist transitive packages: import from `vue`, never `@vue/runtime-core`.
+- `vitest.config.js` — separate from `vite.config.js`; skips the Laravel plugin and file routes.
+
+- LICENSE: MIT (`LICENSE`, `package.json`, `composer.json`).
 
 ## Task routing
 
 | task | route |
 |---|---|
 | repeated mistake or non-obvious fix | `/enggflo-init "<mistake>"` → `.enggflo/learning.md` |
-| dependency review | `/enggflo-maintenance` → `.backlog/` |
+| dependency review | `/enggflo-maintenance` → `.backlog/`; done items → `.done/` |
 
 ## References <!-- enggflo -->
 
