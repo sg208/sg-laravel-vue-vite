@@ -1,6 +1,8 @@
 {
     "private": true,
     "type": "module",
+    "license": "MIT",
+    "author": "Syailendra Ginting",
     "packageManager": "pnpm@10.34.8",
     "scripts": {
         "dev": "vite",

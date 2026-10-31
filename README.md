@@ -30,3 +30,7 @@ This application can be run locally in your Windows 10 machine, please follow th
     - Terminal 1 > Run `php artisan serve` to run Laravel locally
     - Terminal 2 > Run `pnpm dev2` to run Vue SPA locally with JSON server as your local API instead of Laravel
 3. Go to your browser and open `localhost:8000`
+
+## License
+
+MIT. See [LICENSE](LICENSE).
