@@ -2,7 +2,7 @@
     <img
         :src="picture"
         :alt="text"
-        class="shadow rounded max-w-full h-auto align-middle border-none"
+        class="shadow-sm rounded-sm max-w-full h-auto align-middle border-none"
     />
 </template>
 

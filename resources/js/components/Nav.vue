@@ -1,6 +1,6 @@
 <template>
     <nav>
-        <ul class="flex flex-row flex-nowrap flex-grow space-x-5">
+        <ul class="flex flex-row flex-nowrap grow space-x-5">
             <li class="w-full">
                 <router-link to="/">Home</router-link>
             </li>
