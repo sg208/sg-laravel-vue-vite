@@ -4,13 +4,13 @@ import laravel from "laravel-vite-plugin";
 
 // Plugins
 import vue from "@vitejs/plugin-vue";
+import tailwindcss from "@tailwindcss/vite";
 
 // https://github.com/hannoeru/vite-plugin-pages
 import Pages from "vite-plugin-pages";
 
-// https://github.com/antfu/unplugin-vue-components
+// https://github.com/unplugin/unplugin-vue-components
 import Components from "unplugin-vue-components/vite";
-import { ElementPlusResolver } from "unplugin-vue-components/resolvers";
 
 export default defineConfig({
     plugins: [
@@ -26,13 +26,13 @@ export default defineConfig({
                 },
             },
         }),
+        tailwindcss(),
         Pages({
             dirs: "resources/js/pages",
         }),
         Components({
             dirs: ["resources/js/components"],
-            resolvers: [ElementPlusResolver()],
-            include: [/\.vue$/, /\.vue\?vue/, /\.md$/],
+            include: [/\.vue$/, /\.vue\?vue/],
         }),
     ],
 });

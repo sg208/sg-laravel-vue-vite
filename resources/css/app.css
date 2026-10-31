@@ -1,3 +1,15 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss" source(none);
+
+@source "../views/**/*.blade.php";
+@source "../js/**/*.{js,vue}";
+
+/* Tailwind v4 changed the default border colour to currentColor; keep the v3 look. */
+@layer base {
+    *,
+    ::after,
+    ::before,
+    ::backdrop,
+    ::file-selector-button {
+        border-color: var(--color-gray-200, currentColor);
+    }
+}
