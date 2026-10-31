@@ -20,3 +20,4 @@
 - No CI workflow; tests run locally only.
 
 - `master` and `versiontwo` remote branches still exist; deletion needs owner decision.
+- Deferred a11y (release v0.1.0 review, medium/low, pre-existing markup): `WizkidItem.vue` card does not reflow at 320px (stack `flex-col sm:flex-row`, `min-w-0`, `break-all` on email); `index.vue` status region goes silent after load (announce "Loaded N wizkids") and shows nothing for an empty list; wizkid name is `aria-level="3"` under the h1 (use `<h2>`); `welcome.blade.php` title is the stack name, not the app name.
