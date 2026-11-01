@@ -8,7 +8,7 @@ Wizkid Manager 2000 is an application that is focused on managing wizkids. The a
 
 https://sg-laravel-vue-vite.engg.app
 
-The demo is the Vue SPA on its own, without Laravel, served by a Cloudflare Worker (static assets) on the sg208 account. `wrangler.jsonc` holds the config. `pnpm deploy` builds and runs `wrangler deploy`; it needs `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` in the environment.
+The demo is the Vue SPA on its own, without Laravel, served by a Cloudflare Worker (static assets) on the sg208 account. `wrangler.jsonc` holds the config. `pnpm run deploy` builds and runs `wrangler deploy`; it needs `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` in the environment.
 
 ## Stacks
 
