@@ -15,6 +15,8 @@ Live demo: https://sg-laravel-vue-vite.engg.app
 
 The pages live in `resources/js/pages`, components in `resources/js/components`. The wizkid data is in `jsonserver/db.json`.
 
+The site also has Accessibility, Privacy and Terms pages. The footer links to them and to the source on GitHub.
+
 ## Run it locally
 
 You need Node 24 (see `.node-version`) with pnpm (`corepack enable`). For the Laravel side you also need PHP and Composer.
@@ -59,6 +61,10 @@ pnpm run deploy
 ```
 
 This runs `pnpm build:static` and then `wrangler deploy`. You need `wrangler` v4 installed globally and `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` set in your environment.
+
+## For contributors
+
+Agent and architecture notes are in [AGENTS.md](AGENTS.md) and [design.md](design.md).
 
 ## License
 

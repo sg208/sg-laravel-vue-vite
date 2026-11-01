@@ -1,6 +1,7 @@
 # AGENTS.md
 
 - LEARNINGS: `.enggflo/learning.md` · append: `/enggflo-init "<mistake>"`
+- DOCS: `design.md` (architecture) · `conventions.md` (naming, git) · `.enggflo/brain.md` (decisions, open threads) <!-- enggflo -->
 
 ## Project
 
@@ -15,6 +16,8 @@
 - `pnpm dev` — Vite dev server
 - `pnpm dev2` — JSON Server :8080 + Vite (both local devDeps)
 - `pnpm build` — Vite production build to `public/build` (gitignored)
+- `pnpm build:static` — SPA without Laravel → `dist/` + `dist/api/wizkid.json` (`vite.static.config.js`) <!-- enggflo -->
+- `pnpm run deploy` — `build:static` + `wrangler deploy`; needs global wrangler v4 + `CLOUDFLARE_API_TOKEN` · `CLOUDFLARE_ACCOUNT_ID` (names only) <!-- enggflo -->
 - `pnpm test` — Vitest (`vitest.config.js`, `tests/js/*.test.js`)
 - `pnpm audit --audit-level high` — must report no high/critical
 - `composer install && php artisan serve` — Laravel on :8000 (composer not verified in this env)
@@ -33,7 +36,7 @@
 | Laravel | `app/` · `routes/` · `config/` · `database/` |
 
 - CI/CD: none (no `.github/workflows/`).
-- HOSTING: live demo https://sg-laravel-vue-vite.engg.app = `pnpm build:static` → `dist/` on a Cloudflare Worker with static assets (`wrangler.jsonc`, `pnpm run deploy`). No other host.
+- HOSTING: live demo https://sg-laravel-vue-vite.engg.app = `pnpm build:static` → `dist/` on a Cloudflare Worker with static assets (`wrangler.jsonc`, `pnpm run deploy`). No other host. Vercel · Netlify · Railway · Cloudflare Pages · engg.me retired — NEVER document them as live. <!-- enggflo -->
 - LEGAL: `pages/accessibility.vue` · `privacy.vue` · `terms.vue` (via `components/LegalPage.vue`), linked from `Footer.vue` with the GitHub repo link; per-route `document.title` from `resources/js/pageTitles.js`. Privacy page lists third parties (Cloudflare, picsum.photos) — update it when adding an external URL.
 
 ## Test profile
@@ -68,3 +71,4 @@
 - vue — https://vuejs.org/llms.txt (llms.txt)
 - vue-router — https://router.vuejs.org/llms.txt (llms.txt)
 - vite — https://vite.dev/llms.txt (llms.txt)
+- vitest — https://vitest.dev/llms.txt (llms.txt)
