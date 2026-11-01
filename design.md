@@ -33,7 +33,7 @@
 
 - LIVE: https://sg-laravel-vue-vite.engg.app — Cloudflare Worker with static assets (`wrangler.jsonc`).
 - `wrangler.jsonc` — `assets.directory=dist` · `not_found_handling=single-page-application` · custom domain route · `workers_dev=false` · `preview_urls=false`.
-- DEPLOY: `pnpm run deploy` = `pnpm build:static && wrangler deploy` (`package.json` scripts). Needs global wrangler v4 + `CLOUDFLARE_API_TOKEN` · `CLOUDFLARE_ACCOUNT_ID`.
+- DEPLOY: `pnpm run deploy` = `pnpm build:static && wrangler deploy` (`package.json` scripts). Needs wrangler v4 (devDependency) + `CLOUDFLARE_API_TOKEN` · `CLOUDFLARE_ACCOUNT_ID`.
 - RETIRED: Vercel · Netlify · Railway · Cloudflare Pages · engg.me. NEVER list as live.
 - CI/CD: none; deploy is manual.
 
