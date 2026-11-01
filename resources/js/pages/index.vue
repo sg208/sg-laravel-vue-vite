@@ -55,7 +55,9 @@ const summaryLine = computed(() => {
 const statusMessage = computed(() => {
     if (isFetching.value) return "Fetching data, please wait ...";
     if (errorMsg.value) return "";
-    return `Loaded ${wizkidCount.value} wizkids.`;
+    if (wizkidCount.value === 0) return "No wizkids yet.";
+    const noun = wizkidCount.value === 1 ? "wizkid" : "wizkids";
+    return `Loaded ${wizkidCount.value} ${noun}.`;
 });
 
 onMounted(() => {

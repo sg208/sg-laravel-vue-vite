@@ -29,16 +29,14 @@ describe("WizkidItem", () => {
         expect(wrapper.text()).toContain("+1 (999) 503-3632");
     });
 
-    it("gives the picture alt text and the actions accessible names", () => {
+    it("marks the sample photo decorative and names the actions", () => {
         const wrapper = mount(WizkidItem, {
             ...mountOptions,
             props: { item: wizkid },
         });
         const links = wrapper.findAllComponents(RouterLinkStub);
 
-        expect(wrapper.get("img").attributes("alt")).toBe(
-            "Picture of Graham Heath",
-        );
+        expect(wrapper.get("img").attributes("alt")).toBe("");
         expect(links.map((link) => link.props("to"))).toEqual([
             "/update",
             "/delete",

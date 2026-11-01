@@ -51,7 +51,7 @@ describe("index page", () => {
         expect(
             wrapper.findAll('[aria-label="All wizkids"] > li'),
         ).toHaveLength(1);
-        expect(wrapper.get('[role="status"]').text()).toBe("Loaded 1 wizkids.");
+        expect(wrapper.get('[role="status"]').text()).toBe("Loaded 1 wizkid.");
         expect(wrapper.findAll("h1")).toHaveLength(1);
         expect(wrapper.get("h2").text()).toBe("Graham Heath");
     });
@@ -65,6 +65,7 @@ describe("index page", () => {
         await flushPromises();
 
         expect(wrapper.text()).toContain("There are no wizkids yet.");
+        expect(wrapper.get('[role="status"]').text()).toBe("No wizkids yet.");
         expect(wrapper.find('[aria-label="All wizkids"]').exists()).toBe(false);
     });
 });

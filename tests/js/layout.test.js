@@ -6,6 +6,8 @@ import AccessibilityPage from "../../resources/js/pages/accessibility.vue";
 import PrivacyPage from "../../resources/js/pages/privacy.vue";
 import TermsPage from "../../resources/js/pages/terms.vue";
 import AddPage from "../../resources/js/pages/add.vue";
+import UpdatePage from "../../resources/js/pages/update.vue";
+import DeletePage from "../../resources/js/pages/delete.vue";
 import LoginPage from "../../resources/js/pages/login.vue";
 import NotFoundPage from "../../resources/js/pages/[...all].vue";
 
@@ -14,6 +16,8 @@ const routes = [
     { path: "/privacy", component: PrivacyPage },
     { path: "/terms", component: TermsPage },
     { path: "/add", component: AddPage },
+    { path: "/update", component: UpdatePage },
+    { path: "/delete", component: DeletePage },
     { path: "/login", component: LoginPage },
     { path: "/:all(.*)*", component: NotFoundPage },
 ];
@@ -31,7 +35,7 @@ const mountAt = async (path) => {
 };
 
 describe("App layout", () => {
-    it.each(["/accessibility", "/privacy", "/terms", "/add", "/login", "/nope"])(
+    it.each(["/accessibility", "/privacy", "/terms", "/add", "/update", "/delete", "/login", "/nope"])(
         "%s has one h1, the landmarks and the footer links",
         async (path) => {
             const { wrapper } = await mountAt(path);

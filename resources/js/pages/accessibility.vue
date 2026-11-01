@@ -34,8 +34,9 @@
             </li>
             <li>
                 Each wizkid's name is a level 2 heading under the page's level 1
-                heading. Every photo has alt text with the person's name, and
-                the Update and Delete links name the person they act on.
+                heading. The photos are random sample pictures, not the people,
+                so they have empty alt text and screen readers skip them. The
+                Update and Delete links name the person they act on.
             </li>
             <li>
                 Links are real links, so they work with a keyboard. Focus shows
@@ -57,8 +58,8 @@
                 switched off when your system asks for reduced motion.
             </li>
             <li>
-                Unit tests check the headings, landmarks, alt text, link names,
-                the live region and the error alert. Every page was also
+                Unit tests check the headings, landmarks, image alt text, link
+                names, the live region and the error alert. Every page was also
                 checked with the axe tool and walked through with the keyboard,
                 in light and dark mode.
             </li>
@@ -73,10 +74,6 @@
             <li>
                 The Update and Delete links on each row all lead to the same
                 placeholder page, whichever wizkid you picked.
-            </li>
-            <li>
-                The wizkid photos are random landscape pictures, not photos of
-                the people, so the alt text does not describe what is shown.
             </li>
             <li>
                 The site has not been tested with a screen reader by people who

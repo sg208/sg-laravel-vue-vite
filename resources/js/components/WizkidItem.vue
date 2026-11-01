@@ -2,7 +2,8 @@
     <li
         class="grid grid-cols-[56px_minmax(0,1fr)] items-center gap-x-4 gap-y-3 px-4 py-4 sm:px-5 md:grid-cols-[56px_minmax(0,1.1fr)_minmax(0,1.3fr)_auto]"
     >
-        <WizkidPicture :picture="item.picture" :text="`Picture of ${item.name}`" />
+        <!-- Sample photos are random pictures, not the person: decorative, empty alt. -->
+        <WizkidPicture :picture="item.picture" text="" />
         <div class="min-w-0">
             <h2 class="text-lg leading-snug font-medium">{{ item.name }}</h2>
             <span

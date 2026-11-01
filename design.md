@@ -12,7 +12,7 @@
 | data | `resources/js/composables/useWizkid.js:4-5` | `fetch(VITE_WIZKID_API_URL ?? http://localhost:8080/api/wizkid)` |
 | mock API | `jsonserver/db.json` · `jsonserver/routes.json` | JSON Server :8080 via `pnpm dev2` |
 | shell | `resources/js/App.vue` | skip link → `#main` · `Header` (banner + `Nav` "Main") · `main#main` · `Footer`; `afterEach` focuses new page's h1 (not on first load) |
-| list | `resources/js/pages/index.vue` | h1 always rendered (`ListHeader`) · sr-only `role=status` (loading / "Loaded N wizkids.") · `role=alert` error · empty message · `RoleSummary` + `WizkidItem` rows (`ul[aria-label="All wizkids"]`) |
+| list | `resources/js/pages/index.vue` | h1 always rendered (`ListHeader`) · sr-only `role=status` (loading / "Loaded N wizkid(s)." / "No wizkids yet.") · `role=alert` error · empty message · `RoleSummary` + `WizkidItem` rows (`ul[aria-label="All wizkids"]`) |
 | roles | `resources/js/roles.js` | `countRoles` (boss → developer → designer → intern, unknown last) · `getRoleTone` (role tint classes) |
 | placeholders | `pages/{add,update,delete,login,[...all]}.vue` | `ListHeader` + `components/PlaceholderNotice.vue` |
 | legal pages | `resources/js/pages/{accessibility,privacy,terms}.vue` | wrap `components/LegalPage.vue` (h1 + "Last updated") |
