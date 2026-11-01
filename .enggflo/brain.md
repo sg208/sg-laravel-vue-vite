@@ -15,6 +15,8 @@
 
 - 2026-11-01 — Added Accessibility, Privacy, Terms pages + footer GitHub repo link. WHY: public demo needs legal/a11y statements. SOURCE: commit 22c22eb, `Footer.vue:6-28` <!-- enggflo -->
 
+- 2026-11-01 — Live site returns real 404s: static build emits one HTML per router path + `404.html`; Worker `not_found_handling=404-page`. WHY: SPA fallback answered every unknown URL with 200. REJECTED: Worker script checking paths — second route list to keep in sync. SOURCE: `vite.static-routes.js`, `wrangler.jsonc` <!-- enggflo -->
+
 ## Context
 
 - Laravel backend is unused by the SPA; data comes from JSON Server mock (`jsonserver/`).
@@ -28,3 +30,4 @@
 - `master` and `versiontwo` remote branches still exist; deletion needs owner decision.
 - Deferred a11y (release v0.1.0 review, low, PHP view left as is): `welcome.blade.php` `<title>` is the stack name until the SPA sets `document.title`.
 - Deferred review findings (release v0.2.0 review, low): `App.vue:14` `main` has `focus:outline-none` after the skip link; body text uses px sizes (`LegalPage.vue`, `Footer.vue`, `Nav.vue`, `WizkidItem.vue`), not rem; `Nav.vue:7` current-page pill ~1.1:1 vs ground (add underline/weight); `package.json` wrangler pulls workerd/esbuild/sharp install scripts with no `pnpm.onlyBuiltDependencies` allowlist; `index.vue` two hand-rolled plurals (shared helper if a third appears).
+- Deferred a11y (release v0.2.1 review, low): per-route HTML copies + `404.html` keep the stack-name `<title>` and an empty `#app` until JS runs (`vite.static-routes.js:48`); fix = write per-route titles from `pageTitles.js` + a `<noscript>` line. Also `/404` answers 200 (Cloudflare serves `404.html` as an asset).
