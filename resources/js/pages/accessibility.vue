@@ -12,51 +12,75 @@
         <ul>
             <li>
                 The page language is set to English, and every page has its own
-                title and a single main heading.
+                title and exactly one main heading.
+            </li>
+            <li>
+                A "Skip to main content" link is the first thing the Tab key
+                reaches.
             </li>
             <li>
                 The layout uses header, navigation, main and footer landmarks,
-                so screen reader users can jump between them.
+                so screen reader users can jump between them. The two
+                navigation areas are labelled "Main" and "Site information".
             </li>
             <li>
-                The "Fetching data" message sits in a polite live region, and a
-                failed load is announced as an alert.
+                When you move to another page inside the site, focus moves to
+                that page's main heading.
             </li>
             <li>
-                Every wizkid photo has alt text with the person's name, and the
-                Update and Delete links name the person they act on.
+                On the wizkid list, the loading message and the number of
+                wizkids loaded are announced in a polite live region, and a
+                failed load is announced as an alert. An empty list says so.
             </li>
             <li>
-                Links and buttons are real links, so they work with a keyboard
-                and show the browser's focus outline.
+                Each wizkid's name is a level 2 heading under the page's level 1
+                heading. Every photo has alt text with the person's name, and
+                the Update and Delete links name the person they act on.
             </li>
             <li>
-                Unit tests check the alt text, the link names, the live region
-                and the error alert.
+                Links are real links, so they work with a keyboard. Focus shows
+                as a thick outline in the accent colour.
+            </li>
+            <li>
+                Buttons and navigation links are at least 44 pixels tall.
+            </li>
+            <li>
+                Colours follow your system's light or dark setting. Text and
+                controls were checked for WCAG AA contrast in both.
+            </li>
+            <li>
+                The layout reflows down to 320 pixels wide without sideways
+                scrolling.
+            </li>
+            <li>
+                The only motion is a short colour change on hover, and it is
+                switched off when your system asks for reduced motion.
+            </li>
+            <li>
+                Unit tests check the headings, landmarks, alt text, link names,
+                the live region and the error alert. Every page was also
+                checked with the axe tool and walked through with the keyboard,
+                in light and dark mode.
             </li>
         </ul>
 
         <h2>Known problems</h2>
         <ul>
             <li>
-                The wizkid cards do not stack on very narrow screens, so at
-                320px wide some content gets squeezed.
-            </li>
-            <li>
-                When the list finishes loading, nothing is announced, and an
-                empty list shows no message.
-            </li>
-            <li>
-                Wizkid names are marked as level 3 headings directly under the
-                level 1 heading.
-            </li>
-            <li>
-                Moving to another page does not move focus or announce the new
-                page, and there is no skip link.
-            </li>
-            <li>
                 The Add, Update, Delete and Login pages are placeholders with no
                 working forms yet.
+            </li>
+            <li>
+                The Update and Delete links on each row all lead to the same
+                placeholder page, whichever wizkid you picked.
+            </li>
+            <li>
+                The wizkid photos are random landscape pictures, not photos of
+                the people, so the alt text does not describe what is shown.
+            </li>
+            <li>
+                The site has not been tested with a screen reader by people who
+                use one every day.
             </li>
         </ul>
 

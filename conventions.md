@@ -12,7 +12,7 @@
 
 - `.editorconfig` → 4-space indent · LF · final newline; YAML 2-space.
 - Vue SFCs → `<template>` first, then `<script setup>`.
-- Styling → Tailwind utility classes inline; no scoped CSS.
+- Styling → Tailwind utility classes inline with the design tokens (`bg-surface`, `text-ink`, `text-muted`, `bg-accent`; `resources/css/app.css`), never raw palette colours; no scoped CSS.
 - No ESLint/Prettier config in repo → style unenforced.
 
 ## Error handling

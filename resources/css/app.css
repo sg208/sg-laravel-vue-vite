@@ -3,13 +3,113 @@
 @source "../views/**/*.blade.php";
 @source "../js/**/*.{js,vue}";
 
-/* Tailwind v4 changed the default border colour to currentColor; keep the v3 look. */
+/*
+ * Editorial greeting (taste-skill, seed 62489967): white page, one tonal step
+ * for panels, ink text, a deep teal accent spent on the one primary action.
+ * Each role keeps a pale tint of its own hue (identity, not data).
+ * Colours follow the system light/dark setting.
+ */
+:root {
+    color-scheme: light dark;
+    --ground: #ffffff;
+    --surface: #f4f4f1;
+    --raised: #ffffff;
+    --control: #8a8a85;
+    --text: #1f201d;
+    --muted: #595956;
+    --accent: #1b6e66;
+    --accent-ink: #ffffff;
+    --accent-hover: #155851;
+    --negative: #a3221a;
+    --focus: #1b6e66;
+    --role-boss-bg: #f6e7c8;
+    --role-boss-ink: #5c3b00;
+    --role-developer-bg: #d9e8f6;
+    --role-developer-ink: #133d63;
+    --role-designer-bg: #f4dde9;
+    --role-designer-ink: #6a1d45;
+    --role-intern-bg: #dcefdc;
+    --role-intern-ink: #1f4d22;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --ground: #141513;
+        --surface: #1f201d;
+        --raised: #262724;
+        --control: #8d8d87;
+        --text: #ecece7;
+        --muted: #b0b0aa;
+        --accent: #6cc5b8;
+        --accent-ink: #0b1f1c;
+        --accent-hover: #8ad3c8;
+        --negative: #ff9b8f;
+        --focus: #8ad3c8;
+        --role-boss-bg: #3d2f12;
+        --role-boss-ink: #f6dda6;
+        --role-developer-bg: #1c3147;
+        --role-developer-ink: #c6dcf2;
+        --role-designer-bg: #40202f;
+        --role-designer-ink: #f2cbe0;
+        --role-intern-bg: #1f3a21;
+        --role-intern-ink: #c8e8c9;
+    }
+}
+
+@theme inline {
+    --font-sans: "Instrument Sans", ui-sans-serif, system-ui, sans-serif;
+    --font-serif: "Instrument Serif", ui-serif, Georgia, serif;
+    --color-ground: var(--ground);
+    --color-surface: var(--surface);
+    --color-raised: var(--raised);
+    --color-control: var(--control);
+    --color-ink: var(--text);
+    --color-muted: var(--muted);
+    --color-accent: var(--accent);
+    --color-accent-ink: var(--accent-ink);
+    --color-accent-hover: var(--accent-hover);
+    --color-negative: var(--negative);
+    --color-focus: var(--focus);
+}
+
 @layer base {
     *,
     ::after,
     ::before,
     ::backdrop,
     ::file-selector-button {
-        border-color: var(--color-gray-200, currentColor);
+        border-color: var(--surface);
+    }
+
+    html {
+        background: var(--ground);
+        color: var(--text);
+        font-family: var(--font-sans);
+        -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+        background: var(--ground);
+        overflow-wrap: anywhere;
+    }
+
+    :focus-visible {
+        outline: 3px solid var(--focus);
+        outline-offset: 3px;
+    }
+
+    ::selection {
+        background: var(--role-developer-bg);
+        color: var(--role-developer-ink);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    ::before,
+    ::after {
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
     }
 }
