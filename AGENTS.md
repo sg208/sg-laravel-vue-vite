@@ -1,6 +1,7 @@
 # AGENTS.md
 
 - LEARNINGS: `.enggflo/learning.md` · append: `/enggflo-init "<mistake>"`
+- DOCS: `design.md` (architecture) · `conventions.md` (naming, git) · `.enggflo/brain.md` (decisions, open threads) <!-- enggflo -->
 
 ## Project
 
@@ -15,6 +16,8 @@
 - `pnpm dev` — Vite dev server
 - `pnpm dev2` — JSON Server :8080 + Vite (both local devDeps)
 - `pnpm build` — Vite production build to `public/build` (gitignored)
+- `pnpm build:static` — SPA without Laravel → `dist/` + `dist/api/wizkid.json` (`vite.static.config.js`) <!-- enggflo -->
+- `pnpm run deploy` — `build:static` + `wrangler deploy`; needs wrangler v4 (devDependency) + `CLOUDFLARE_API_TOKEN` · `CLOUDFLARE_ACCOUNT_ID` (names only) <!-- enggflo -->
 - `pnpm test` — Vitest (`vitest.config.js`, `tests/js/*.test.js`)
 - `pnpm audit --audit-level high` — must report no high/critical
 - `composer install && php artisan serve` — Laravel on :8000 (composer not verified in this env)
@@ -27,12 +30,15 @@
 | SPA entry | `resources/js/app.js` → mounts `App.vue` on `#app` in `resources/views/welcome.blade.php` |
 | routes (file-based) | `resources/js/pages/*.vue` via `vite-plugin-pages` (`vite.config.js`), router `resources/js/router.js` |
 | components (auto-imported) | `resources/js/components/` via `unplugin-vue-components` (`vite.config.js`) |
-| data access | `resources/js/composables/useWizkid.js` (fetches `http://localhost:8080/api/wizkid`) |
+| data access | `resources/js/composables/useWizkid.js` (`VITE_WIZKID_API_URL`, falls back to `http://localhost:8080/api/wizkid`) |
 | mock API | `jsonserver/db.json` + `jsonserver/routes.json` |
-| styles | `resources/css/app.css` (Tailwind 4 via `@tailwindcss/vite`, `@source` globs) |
+| styles | `resources/css/app.css` (Tailwind 4 via `@tailwindcss/vite`, `@source` globs; design tokens light/dark + `@theme inline`, see `design.md` § Visual design) |
+| fonts | `@fontsource/instrument-sans` + `@fontsource/instrument-serif` imported in `resources/js/app.js` — NEVER a font CDN |
 | Laravel | `app/` · `routes/` · `config/` · `database/` |
 
 - CI/CD: none (no `.github/workflows/`).
+- HOSTING: live demo = static Vue front end only (no PHP); Laravel runs locally only and has no wizkid API. https://sg-laravel-vue-vite.engg.app = `pnpm build:static` → `dist/` on a Cloudflare Worker with static assets (`wrangler.jsonc`, `pnpm run deploy`). No other host. Vercel · Netlify · Railway · Cloudflare Pages · engg.me retired — NEVER document them as live. <!-- enggflo -->
+- LEGAL: `pages/accessibility.vue` · `privacy.vue` · `terms.vue` (via `components/LegalPage.vue`), linked from `Footer.vue` with the GitHub repo link; per-route `document.title` from `resources/js/pageTitles.js`. Privacy page lists third parties (Cloudflare, picsum.photos) — update it when adding an external URL. Accessibility page claims are fact-checked against the code — update it when changing focus, landmarks, live regions or colours.
 
 ## Test profile
 
@@ -46,7 +52,6 @@
 
 ## Gotchas
 
-- `resources/js/composables/useWizkid.js:9` — API URL hardcoded to JSON Server on localhost:8080.
 - `resources/js/bootstrap.js` — not imported by `app.js`; axios/lodash unused at runtime.
 - `package.json` `"type": "module"` — config files are ESM; a CommonJS config needs `.cjs`.
 - `package.json` `pnpm.overrides` — patched rollup 2, nanoid 3, picomatch 2 for audit; drop once upstream deps move.
@@ -67,3 +72,4 @@
 - vue — https://vuejs.org/llms.txt (llms.txt)
 - vue-router — https://router.vuejs.org/llms.txt (llms.txt)
 - vite — https://vite.dev/llms.txt (llms.txt)
+- vitest — https://vitest.dev/llms.txt (llms.txt)

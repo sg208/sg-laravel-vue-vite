@@ -2,6 +2,8 @@ import { describe, expect, it } from "vitest";
 import { mount, RouterLinkStub } from "@vue/test-utils";
 import WizkidItem from "../../resources/js/components/WizkidItem.vue";
 import ListHeader from "../../resources/js/components/ListHeader.vue";
+import RoleSummary from "../../resources/js/components/RoleSummary.vue";
+import { countRoles } from "../../resources/js/roles";
 
 const mountOptions = { global: { stubs: { RouterLink: RouterLinkStub } } };
 
@@ -21,22 +23,20 @@ describe("WizkidItem", () => {
             props: { item: wizkid },
         });
 
-        expect(wrapper.get('[role="heading"]').text()).toBe("Graham Heath");
+        expect(wrapper.get("h2").text()).toBe("Graham Heath");
         expect(wrapper.text()).toContain("intern");
         expect(wrapper.text()).toContain("grahamheath@qot.com");
         expect(wrapper.text()).toContain("+1 (999) 503-3632");
     });
 
-    it("gives the picture alt text and the actions accessible names", () => {
+    it("marks the sample photo decorative and names the actions", () => {
         const wrapper = mount(WizkidItem, {
             ...mountOptions,
             props: { item: wizkid },
         });
         const links = wrapper.findAllComponents(RouterLinkStub);
 
-        expect(wrapper.get("img").attributes("alt")).toBe(
-            "Picture of Graham Heath",
-        );
+        expect(wrapper.get("img").attributes("alt")).toBe("");
         expect(links.map((link) => link.props("to"))).toEqual([
             "/update",
             "/delete",
@@ -47,13 +47,14 @@ describe("WizkidItem", () => {
         ]);
     });
 
-    it("skips the chips a wizkid does not have", () => {
+    it("skips the details a wizkid does not have", () => {
         const wrapper = mount(WizkidItem, {
             ...mountOptions,
             props: { item: { _id: "2", name: "No Details" } },
         });
 
-        expect(wrapper.findAll('[role="listitem"]')).toHaveLength(0);
+        expect(wrapper.find('[aria-label="Contact"]').exists()).toBe(false);
+        expect(wrapper.text()).not.toContain("intern");
     });
 });
 
@@ -75,5 +76,40 @@ describe("ListHeader", () => {
         });
 
         expect(wrapper.findComponent(RouterLinkStub).exists()).toBe(false);
+    });
+});
+
+describe("countRoles", () => {
+    it("counts each role, most senior first", () => {
+        const counts = countRoles([
+            { role: "intern" },
+            { role: "boss" },
+            { role: "intern" },
+            { role: "astronaut" },
+        ]);
+
+        expect(counts).toEqual([
+            { role: "boss", count: 1 },
+            { role: "intern", count: 2 },
+            { role: "astronaut", count: 1 },
+        ]);
+    });
+});
+
+describe("RoleSummary", () => {
+    it("shows one panel per role with a plural label", () => {
+        const wrapper = mount(RoleSummary, {
+            props: {
+                wizkids: [{ role: "boss" }, { role: "boss" }, { role: "intern" }],
+            },
+        });
+        const panels = wrapper
+            .findAll("li")
+            .map((panel) => panel.findAll("span").map((part) => part.text()));
+
+        expect(panels).toEqual([
+            ["2", "bosses"],
+            ["1", "intern"],
+        ]);
     });
 });

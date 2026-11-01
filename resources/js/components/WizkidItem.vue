@@ -1,62 +1,59 @@
 <template>
-    <li class="border-2 rounded-lg bg-gray-50 p-3 flex flex-row gap-3">
-        <span class="flex flex-wrap justify-center">
-            <span class="w-20">
-                <WizkidPicture
-                    :picture="item.picture"
-                    :text="`Picture of ${item.name}`"
-                />
+    <li
+        class="grid grid-cols-[56px_minmax(0,1fr)] items-center gap-x-4 gap-y-3 px-4 py-4 sm:px-5 md:grid-cols-[56px_minmax(0,1.1fr)_minmax(0,1.3fr)_auto]"
+    >
+        <!-- Sample photos are random pictures, not the person: decorative, empty alt. -->
+        <WizkidPicture :picture="item.picture" text="" />
+        <div class="min-w-0">
+            <h2 class="text-lg leading-snug font-medium">{{ item.name }}</h2>
+            <span
+                v-if="item.role"
+                :class="getRoleTone(item.role)"
+                class="mt-1 inline-block rounded-full px-3 py-0.5 text-sm"
+            >
+                {{ item.role }}
             </span>
-        </span>
-        <span class="flex flex-col my-auto grow">
-            <span role="heading" aria-level="3" class="font-bold text-lg pb-2">
-                {{ item.name }}
-            </span>
-            <span class="flex flex-row flex-wrap gap-2 text-md" role="list">
-                <span
-                    v-if="item.role"
-                    class="px-2 py-1 bg-white rounded-lg border-2"
-                    role="listitem"
-                >
-                    {{ item.role }}
-                </span>
-                <span
-                    v-if="item.email"
-                    class="px-2 py-1 bg-white rounded-lg border-2"
-                    role="listitem"
-                >
-                    {{ item.email }}
-                </span>
-                <span
-                    v-if="item.phone"
-                    class="px-2 py-1 bg-white rounded-lg border-2"
-                    role="listitem"
-                >
-                    {{ item.phone }}
-                </span>
-            </span>
-        </span>
-        <span class="flex flex-row my-auto gap-2">
+        </div>
+        <ul
+            v-if="contactLines.length"
+            aria-label="Contact"
+            class="col-span-2 min-w-0 text-[15px] leading-relaxed tabular-nums md:col-span-1"
+        >
+            <li v-for="line in contactLines" :key="line" class="break-words">
+                {{ line }}
+            </li>
+        </ul>
+        <div
+            class="col-span-2 flex flex-wrap gap-2 md:col-span-1 md:justify-end"
+            :class="{ 'md:col-start-4': !contactLines.length }"
+        >
             <router-link
                 to="/update"
-                class="bg-orange-800 text-white py-1 px-3 rounded-lg self-end"
+                class="inline-flex min-h-11 items-center rounded-full bg-raised px-4 text-[15px] font-medium text-ink ring-1 ring-control ring-inset transition-colors hover:bg-ground"
                 :aria-label="`Update ${item.name} data`"
             >
                 Update
             </router-link>
             <router-link
                 to="/delete"
-                class="bg-red-700 py-1 px-3 text-white rounded-lg self-end"
+                class="inline-flex min-h-11 items-center rounded-full px-4 text-[15px] font-medium text-negative underline-offset-4 transition-colors hover:underline"
                 :aria-label="`Delete ${item.name} data`"
             >
                 Delete
             </router-link>
-        </span>
+        </div>
     </li>
 </template>
 
 <script setup>
-defineProps({
+import { computed } from "vue";
+import { getRoleTone } from "../roles";
+
+const props = defineProps({
     item: Object,
 });
+
+const contactLines = computed(() =>
+    [props.item.email, props.item.phone].filter(Boolean),
+);
 </script>

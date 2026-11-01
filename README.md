@@ -1,41 +1,94 @@
-# SG-LARAVEL-VUE3-VITE-TAILWIND
+# Wizkid Manager 2000
 
-## Overview
+A small Laravel and Vue 3 demo for keeping a list of wizkids. Right now it lists them; adding, updating, deleting and logging in are placeholder pages.
 
-Wizkid Manager 2000 is an application that is focused on managing wizkids. The application will provide features such as adding, viewing, updating, and deleting of wizkids.
+Live demo: https://sg-laravel-vue-vite.engg.app
 
-## Stacks
+The live demo is only the Vue front end, built as static files. There is no Laravel or PHP behind it: the wizkid list is a JSON file copied into the build. Laravel only runs on your own machine, and even there it does not serve the wizkid data. Its one route (`routes/web.php`) returns the page that loads the Vue app, and the list comes from JSON Server on port 8080.
+
+## Stack
 
 -   Laravel 9
--   Vue 3.5 and Vue Router 5
+-   Vue 3.5 and Vue Router 5, with file-based routes from `vite-plugin-pages`
 -   Vite 8
 -   Tailwind CSS 4
 -   pnpm and Vitest
--   JSON Server, for local data source replacement
+-   JSON Server as a local stand-in for the API
 
-## Installation (Windows 10 Only)
+The pages live in `resources/js/pages`, components in `resources/js/components`. The wizkid data is in `jsonserver/db.json`.
 
-This application can be run locally in your Windows 10 machine, please follow the following for installation after you clone the repo:
+The site also has Accessibility, Privacy and Terms pages. The footer links to them and to the source on GitHub.
 
-1. Download [XAMPP](https://www.apachefriends.org/) for Windows then Install it on your Windows 10 computer.
-2. Download [Composer](https://getcomposer.org/download/) (Composer-Setup.exe) then install it.
-3. Install Node 24 (see `.node-version`) and enable pnpm with `corepack enable`.
-4. Go to the directory for this application, then run `pnpm install` to install packages (this includes `json-server` and `concurrently`).
-5. Move this repo to `C:\xampp\htdocs` since we'll be using `XAMPP` to run the Apache and MySQL
+## Design
 
-## Running locally
+The list opens with the page title set large in Instrument Serif, a count of people on the team, and one panel per role with its count. Below that, each wizkid is a row with a round photo, name, role tag, email, phone, and Update and Delete links. Each role has its own pale colour tag. The rest of the interface uses Instrument Sans, with a deep teal reserved for the "Add new wizkid" button and the focus outline.
 
-1. Open XAMPP application. If XAMPP is not found in your programs list, find and run `C:\xampp\xampp-control.exe` (or whereever XAMPP was originally installed on your machine).
-    - Click `START` on both `Apache` and `MySql`.
-2. Go to the the root of this application then open multiple instances of terminal.
-    - Terminal 1 > Run `php artisan serve` to run Laravel locally
-    - Terminal 2 > Run `pnpm dev2` to run Vue SPA locally with JSON server as your local API instead of Laravel
-3. Go to your browser and open `localhost:8000`
+Light and dark colours follow your system setting. Both fonts are bundled from `@fontsource` packages, so the site loads no fonts from other servers. The layout works down to 320px wide without sideways scrolling. Details are in [design.md](design.md).
 
-## Tests
+## Run it locally
 
--   `pnpm test` runs the Vitest suite in `tests/js`.
--   `pnpm build` builds the front end to `public/build`.
+You need Node 24 (see `.node-version`) with pnpm (`corepack enable`).
+
+```sh
+pnpm install
+pnpm dev2
+```
+
+`pnpm dev2` starts JSON Server on port 8080 and the Vite dev server together. The page that loads the app comes from Laravel 9, so you also need PHP and Composer. In a second terminal:
+
+```sh
+composer install
+cp .env.example .env
+php artisan key:generate
+php artisan serve
+```
+
+Then open `localhost:8000`. Laravel answers only `/`, so moving between pages works by clicking, but reloading a page such as `/privacy` gives Laravel's 404 page. The static demo does not have this problem.
+
+To see the same build as the live demo, without PHP:
+
+```sh
+pnpm build:static
+pnpm exec vite preview --config vite.static.config.js
+```
+
+### On Windows with XAMPP
+
+The original setup used Windows 10 with XAMPP:
+
+1. Install [XAMPP](https://www.apachefriends.org/) and [Composer](https://getcomposer.org/download/) (Composer-Setup.exe).
+2. Move the repo to `C:\xampp\htdocs` and run `pnpm install` there.
+3. Open XAMPP (or `C:\xampp\xampp-control.exe`) and start Apache and MySQL.
+4. In one terminal run `php artisan serve`, in another `pnpm dev2`, then open `localhost:8000`.
+
+## Test
+
+```sh
+pnpm test
+```
+
+Runs the Vitest suite in `tests/js`.
+
+## Build
+
+-   `pnpm build` builds the front end for Laravel into `public/build`.
+-   `pnpm build:static` builds the Vue app on its own, without Laravel, into `dist/` using `vite.static.config.js` and the root `index.html`. It copies the wizkids from `jsonserver/db.json` to `dist/api/wizkid.json`.
+
+The app reads the API address from `VITE_WIZKID_API_URL`. When that is not set, it uses JSON Server at `http://localhost:8080/api/wizkid`.
+
+## Deploy
+
+The live demo is the static build from `pnpm build:static`, served by a Cloudflare Worker with static assets. No PHP runs there. The config is in `wrangler.jsonc`.
+
+```sh
+pnpm run deploy
+```
+
+This runs `pnpm build:static` and then `wrangler deploy`. Wrangler 4 is a dev dependency, so you only need `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` set in your environment.
+
+## For contributors
+
+Agent and architecture notes are in [AGENTS.md](AGENTS.md) and [design.md](design.md).
 
 ## License
 
