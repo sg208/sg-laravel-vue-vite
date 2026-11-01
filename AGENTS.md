@@ -17,7 +17,7 @@
 - `pnpm dev2` — JSON Server :8080 + Vite (both local devDeps)
 - `pnpm build` — Vite production build to `public/build` (gitignored)
 - `pnpm build:static` — SPA without Laravel → `dist/` + `dist/api/wizkid.json` (`vite.static.config.js`) <!-- enggflo -->
-- `pnpm run deploy` — `build:static` + `wrangler deploy`; needs global wrangler v4 + `CLOUDFLARE_API_TOKEN` · `CLOUDFLARE_ACCOUNT_ID` (names only) <!-- enggflo -->
+- `pnpm run deploy` — `build:static` + `wrangler deploy`; needs wrangler v4 (devDependency) + `CLOUDFLARE_API_TOKEN` · `CLOUDFLARE_ACCOUNT_ID` (names only) <!-- enggflo -->
 - `pnpm test` — Vitest (`vitest.config.js`, `tests/js/*.test.js`)
 - `pnpm audit --audit-level high` — must report no high/critical
 - `composer install && php artisan serve` — Laravel on :8000 (composer not verified in this env)

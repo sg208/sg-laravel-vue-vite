@@ -60,7 +60,7 @@ The live demo is the static build, served by a Cloudflare Worker with static ass
 pnpm run deploy
 ```
 
-This runs `pnpm build:static` and then `wrangler deploy`. You need `wrangler` v4 installed globally and `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` set in your environment.
+This runs `pnpm build:static` and then `wrangler deploy`. Wrangler 4 is a dev dependency, so you only need `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` set in your environment.
 
 ## For contributors
 
