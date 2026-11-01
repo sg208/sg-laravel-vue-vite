@@ -1,5 +1,4 @@
 <template>
     <ListHeader :is-homepage="false" heading="Delete wizkid data" />
-    <div>Work in progress, coming soon :)</div>
-    <router-link to="/" class="text-blue-500 underline">Go back</router-link>
+    <PlaceholderNotice>Deleting a wizkid is not built yet. Nothing has been removed.</PlaceholderNotice>
 </template>

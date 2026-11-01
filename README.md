@@ -4,6 +4,8 @@ A small Laravel and Vue 3 demo for keeping a list of wizkids. Right now it lists
 
 Live demo: https://sg-laravel-vue-vite.engg.app
 
+The live demo is only the Vue front end, built as static files. There is no Laravel or PHP behind it: the wizkid list is a JSON file copied into the build. Laravel only runs on your own machine, and even there it does not serve the wizkid data. Its one route (`routes/web.php`) returns the page that loads the Vue app, and the list comes from JSON Server on port 8080.
+
 ## Stack
 
 -   Laravel 9
@@ -17,16 +19,38 @@ The pages live in `resources/js/pages`, components in `resources/js/components`.
 
 The site also has Accessibility, Privacy and Terms pages. The footer links to them and to the source on GitHub.
 
+## Design
+
+The list opens with the page title set large in Instrument Serif, a count of people on the team, and one panel per role with its count. Below that, each wizkid is a row with a round photo, name, role tag, email, phone, and Update and Delete links. Each role has its own pale colour tag. The rest of the interface uses Instrument Sans, with a deep teal reserved for the "Add new wizkid" button and the focus outline.
+
+Light and dark colours follow your system setting. Both fonts are bundled from `@fontsource` packages, so the site loads no fonts from other servers. The layout works down to 320px wide without sideways scrolling. Details are in [design.md](design.md).
+
 ## Run it locally
 
-You need Node 24 (see `.node-version`) with pnpm (`corepack enable`). For the Laravel side you also need PHP and Composer.
+You need Node 24 (see `.node-version`) with pnpm (`corepack enable`).
 
 ```sh
 pnpm install
 pnpm dev2
 ```
 
-`pnpm dev2` starts JSON Server on port 8080 and the Vite dev server together. In a second terminal, run `php artisan serve` and open `localhost:8000`.
+`pnpm dev2` starts JSON Server on port 8080 and the Vite dev server together. The page that loads the app comes from Laravel 9, so you also need PHP and Composer. In a second terminal:
+
+```sh
+composer install
+cp .env.example .env
+php artisan key:generate
+php artisan serve
+```
+
+Then open `localhost:8000`. Laravel answers only `/`, so moving between pages works by clicking, but reloading a page such as `/privacy` gives Laravel's 404 page. The static demo does not have this problem.
+
+To see the same build as the live demo, without PHP:
+
+```sh
+pnpm build:static
+pnpm exec vite preview --config vite.static.config.js
+```
 
 ### On Windows with XAMPP
 
@@ -54,7 +78,7 @@ The app reads the API address from `VITE_WIZKID_API_URL`. When that is not set, 
 
 ## Deploy
 
-The live demo is the static build, served by a Cloudflare Worker with static assets. The config is in `wrangler.jsonc`.
+The live demo is the static build from `pnpm build:static`, served by a Cloudflare Worker with static assets. No PHP runs there. The config is in `wrangler.jsonc`.
 
 ```sh
 pnpm run deploy

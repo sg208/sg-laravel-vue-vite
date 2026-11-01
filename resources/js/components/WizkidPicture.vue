@@ -2,7 +2,11 @@
     <img
         :src="picture"
         :alt="text"
-        class="shadow-sm rounded-sm max-w-full h-auto align-middle border-none"
+        width="56"
+        height="56"
+        loading="lazy"
+        decoding="async"
+        class="size-14 rounded-full bg-surface object-cover"
     />
 </template>
 

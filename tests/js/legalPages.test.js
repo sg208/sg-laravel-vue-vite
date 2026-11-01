@@ -17,7 +17,9 @@ describe("Footer", () => {
             .map((link) => link.props("to"));
         const repoLink = wrapper.get(`a[href="${REPO_URL}"]`);
 
-        expect(wrapper.get("footer").attributes("role")).toBe("contentinfo");
+        expect(wrapper.get("footer nav").attributes("aria-label")).toBe(
+            "Site information",
+        );
         expect(routes).toEqual(["/accessibility", "/privacy", "/terms"]);
         expect(repoLink.text()).toBe("Source on GitHub");
         expect(repoLink.attributes("target")).toBeUndefined();

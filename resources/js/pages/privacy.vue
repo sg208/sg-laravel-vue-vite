@@ -35,7 +35,11 @@
                 code or the issue tracker.
             </li>
         </ul>
-        <p>The site loads no web fonts, maps or other outside scripts.</p>
+        <p>
+            The fonts (Instrument Sans and Instrument Serif) ship with the site
+            itself. The site loads no fonts, maps or scripts from any other
+            server.
+        </p>
 
         <h2>Questions</h2>
         <p>

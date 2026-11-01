@@ -32,12 +32,13 @@
 | components (auto-imported) | `resources/js/components/` via `unplugin-vue-components` (`vite.config.js`) |
 | data access | `resources/js/composables/useWizkid.js` (`VITE_WIZKID_API_URL`, falls back to `http://localhost:8080/api/wizkid`) |
 | mock API | `jsonserver/db.json` + `jsonserver/routes.json` |
-| styles | `resources/css/app.css` (Tailwind 4 via `@tailwindcss/vite`, `@source` globs) |
+| styles | `resources/css/app.css` (Tailwind 4 via `@tailwindcss/vite`, `@source` globs; design tokens light/dark + `@theme inline`, see `design.md` § Visual design) |
+| fonts | `@fontsource/instrument-sans` + `@fontsource/instrument-serif` imported in `resources/js/app.js` — NEVER a font CDN |
 | Laravel | `app/` · `routes/` · `config/` · `database/` |
 
 - CI/CD: none (no `.github/workflows/`).
-- HOSTING: live demo https://sg-laravel-vue-vite.engg.app = `pnpm build:static` → `dist/` on a Cloudflare Worker with static assets (`wrangler.jsonc`, `pnpm run deploy`). No other host. Vercel · Netlify · Railway · Cloudflare Pages · engg.me retired — NEVER document them as live. <!-- enggflo -->
-- LEGAL: `pages/accessibility.vue` · `privacy.vue` · `terms.vue` (via `components/LegalPage.vue`), linked from `Footer.vue` with the GitHub repo link; per-route `document.title` from `resources/js/pageTitles.js`. Privacy page lists third parties (Cloudflare, picsum.photos) — update it when adding an external URL.
+- HOSTING: live demo = static Vue front end only (no PHP); Laravel runs locally only and has no wizkid API. https://sg-laravel-vue-vite.engg.app = `pnpm build:static` → `dist/` on a Cloudflare Worker with static assets (`wrangler.jsonc`, `pnpm run deploy`). No other host. Vercel · Netlify · Railway · Cloudflare Pages · engg.me retired — NEVER document them as live. <!-- enggflo -->
+- LEGAL: `pages/accessibility.vue` · `privacy.vue` · `terms.vue` (via `components/LegalPage.vue`), linked from `Footer.vue` with the GitHub repo link; per-route `document.title` from `resources/js/pageTitles.js`. Privacy page lists third parties (Cloudflare, picsum.photos) — update it when adding an external URL. Accessibility page claims are fact-checked against the code — update it when changing focus, landmarks, live regions or colours.
 
 ## Test profile
 

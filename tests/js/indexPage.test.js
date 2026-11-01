@@ -35,6 +35,7 @@ describe("index page", () => {
             "Something is wrong, please try again later.",
         );
         expect(wrapper.find("ul").exists()).toBe(false);
+        expect(wrapper.findAll("h1")).toHaveLength(1);
     });
 
     it("lists the wizkids when the fetch succeeds", async () => {
@@ -47,6 +48,23 @@ describe("index page", () => {
         await flushPromises();
 
         expect(wrapper.find('[role="alert"]').exists()).toBe(false);
-        expect(wrapper.findAll("ul > li")).toHaveLength(1);
+        expect(
+            wrapper.findAll('[aria-label="All wizkids"] > li'),
+        ).toHaveLength(1);
+        expect(wrapper.get('[role="status"]').text()).toBe("Loaded 1 wizkids.");
+        expect(wrapper.findAll("h1")).toHaveLength(1);
+        expect(wrapper.get("h2").text()).toBe("Graham Heath");
+    });
+
+    it("says so when the list is empty", async () => {
+        vi.stubGlobal(
+            "fetch",
+            vi.fn(async () => ({ json: async () => [] })),
+        );
+        const wrapper = mount(IndexPage, mountOptions);
+        await flushPromises();
+
+        expect(wrapper.text()).toContain("There are no wizkids yet.");
+        expect(wrapper.find('[aria-label="All wizkids"]').exists()).toBe(false);
     });
 });
