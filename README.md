@@ -4,6 +4,12 @@
 
 Wizkid Manager 2000 is an application that is focused on managing wizkids. The application will provide features such as adding, viewing, updating, and deleting of wizkids.
 
+## Live demo
+
+https://sg-laravel-vue-vite.engg.app
+
+The demo is the Vue SPA on its own, without Laravel, served by a Cloudflare Worker (static assets) on the sg208 account. `wrangler.jsonc` holds the config. `pnpm deploy` builds and runs `wrangler deploy`; it needs `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` in the environment.
+
 ## Stacks
 
 -   Laravel 9
@@ -31,6 +37,10 @@ This application can be run locally in your Windows 10 machine, please follow th
     - Terminal 1 > Run `php artisan serve` to run Laravel locally
     - Terminal 2 > Run `pnpm dev2` to run Vue SPA locally with JSON server as your local API instead of Laravel
 3. Go to your browser and open `localhost:8000`
+
+## Static demo build
+
+`pnpm build:static` builds the Vue SPA without Laravel into `dist/`, using `vite.static.config.js` and the root `index.html`. It also bundles the wizkids from `jsonserver/db.json` as `dist/api/wizkid.json`. The composable reads the API address from `VITE_WIZKID_API_URL` and falls back to `http://localhost:8080/api/wizkid` (json-server) when it is not set, as in local development.
 
 ## Tests
 

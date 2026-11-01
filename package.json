@@ -9,7 +9,9 @@
         "dev": "vite",
         "dev2": "concurrently \"json-server ./jsonserver/db.json --port 8080 --routes ./jsonserver/routes.json\" \"vite\"",
         "build": "vite build",
-        "test": "vitest run"
+        "test": "vitest run",
+        "build:static": "vite build --config vite.static.config.js",
+        "deploy": "pnpm build:static && wrangler deploy"
     },
     "devDependencies": {
         "@tailwindcss/vite": "^4.3.3",
