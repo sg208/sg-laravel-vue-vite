@@ -27,12 +27,14 @@
 | SPA entry | `resources/js/app.js` → mounts `App.vue` on `#app` in `resources/views/welcome.blade.php` |
 | routes (file-based) | `resources/js/pages/*.vue` via `vite-plugin-pages` (`vite.config.js`), router `resources/js/router.js` |
 | components (auto-imported) | `resources/js/components/` via `unplugin-vue-components` (`vite.config.js`) |
-| data access | `resources/js/composables/useWizkid.js` (fetches `http://localhost:8080/api/wizkid`) |
+| data access | `resources/js/composables/useWizkid.js` (`VITE_WIZKID_API_URL`, falls back to `http://localhost:8080/api/wizkid`) |
 | mock API | `jsonserver/db.json` + `jsonserver/routes.json` |
 | styles | `resources/css/app.css` (Tailwind 4 via `@tailwindcss/vite`, `@source` globs) |
 | Laravel | `app/` · `routes/` · `config/` · `database/` |
 
 - CI/CD: none (no `.github/workflows/`).
+- HOSTING: live demo https://sg-laravel-vue-vite.engg.app = `pnpm build:static` → `dist/` on a Cloudflare Worker with static assets (`wrangler.jsonc`, `pnpm run deploy`). No other host.
+- LEGAL: `pages/accessibility.vue` · `privacy.vue` · `terms.vue` (via `components/LegalPage.vue`), linked from `Footer.vue` with the GitHub repo link; per-route `document.title` from `resources/js/pageTitles.js`. Privacy page lists third parties (Cloudflare, picsum.photos) — update it when adding an external URL.
 
 ## Test profile
 
@@ -46,7 +48,6 @@
 
 ## Gotchas
 
-- `resources/js/composables/useWizkid.js:9` — API URL hardcoded to JSON Server on localhost:8080.
 - `resources/js/bootstrap.js` — not imported by `app.js`; axios/lodash unused at runtime.
 - `package.json` `"type": "module"` — config files are ESM; a CommonJS config needs `.cjs`.
 - `package.json` `pnpm.overrides` — patched rollup 2, nanoid 3, picomatch 2 for audit; drop once upstream deps move.
