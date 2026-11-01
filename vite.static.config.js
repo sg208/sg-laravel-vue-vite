@@ -6,6 +6,7 @@ import vue from "@vitejs/plugin-vue";
 import tailwindcss from "@tailwindcss/vite";
 import Pages from "vite-plugin-pages";
 import Components from "unplugin-vue-components/vite";
+import { routeHtmlPlugin } from "./vite.static-routes.js";
 
 const emitWizkidJson = () => ({
     name: "emit-wizkid-json",
@@ -36,6 +37,7 @@ export default defineConfig({
             dirs: ["resources/js/components"],
             include: [/\.vue$/, /\.vue\?vue/],
         }),
+        routeHtmlPlugin(),
     ],
     build: {
         outDir: "dist",

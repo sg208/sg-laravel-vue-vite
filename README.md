@@ -52,6 +52,8 @@ pnpm build:static
 pnpm exec vite preview --config vite.static.config.js
 ```
 
+`vite preview` answers every address with 200. To check the real status codes, serve `dist/` the way the live site does with `pnpm exec wrangler dev`.
+
 ### On Windows with XAMPP
 
 The original setup used Windows 10 with XAMPP:
@@ -72,7 +74,7 @@ Runs the Vitest suite in `tests/js`.
 ## Build
 
 -   `pnpm build` builds the front end for Laravel into `public/build`.
--   `pnpm build:static` builds the Vue app on its own, without Laravel, into `dist/` using `vite.static.config.js` and the root `index.html`. It copies the wizkids from `jsonserver/db.json` to `dist/api/wizkid.json`.
+-   `pnpm build:static` builds the Vue app on its own, without Laravel, into `dist/` using `vite.static.config.js` and the root `index.html`. It copies the wizkids from `jsonserver/db.json` to `dist/api/wizkid.json`. It also writes one HTML file per page (`add.html`, `privacy.html` and so on, taken from the router's own page list) and a `404.html`, so the live site answers real pages with 200 and unknown addresses with a 404 and the "Page not found" view.
 
 The app reads the API address from `VITE_WIZKID_API_URL`. When that is not set, it uses JSON Server at `http://localhost:8080/api/wizkid`.
 

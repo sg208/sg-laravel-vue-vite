@@ -43,7 +43,7 @@ Direction: taste-skill app style "Editorial greeting" (seed 62489967, `.taste-sk
 | build | config | output | consumer |
 |---|---|---|---|
 | Laravel | `vite.config.js` (`laravel-vite-plugin`) | `public/build` | `php artisan serve` |
-| static demo | `vite.static.config.js` + root `index.html` | `dist/` + `dist/api/wizkid.json` | Cloudflare Worker |
+| static demo | `vite.static.config.js` + root `index.html` + `vite.static-routes.js` | `dist/` + `dist/api/wizkid.json` + one `<route>.html` per static route + `404.html` | Cloudflare Worker |
 | tests | `vitest.config.js` | — | `pnpm test` (happy-dom) |
 
 ## Data flow
@@ -57,7 +57,8 @@ Direction: taste-skill app style "Editorial greeting" (seed 62489967, `.taste-sk
 
 - Live demo = static Vue front end only; no PHP. Laravel runs only locally (`php artisan serve`), serves `/` only, and has no wizkid API — local data comes from JSON Server.
 - LIVE: https://sg-laravel-vue-vite.engg.app — Cloudflare Worker with static assets (`wrangler.jsonc`).
-- `wrangler.jsonc` — `assets.directory=dist` · `not_found_handling=single-page-application` · custom domain route · `workers_dev=false` · `preview_urls=false`.
+- `wrangler.jsonc` — `assets.directory=dist` · `html_handling=auto-trailing-slash` · `not_found_handling=404-page` · custom domain route · `workers_dev=false` · `preview_urls=false`.
+- STATUS CODES: real routes 200 (`/add` serves `add.html`; `/add/` and `/add.html` 307 → `/add`); any other URL → `dist/404.html` with HTTP 404, which boots the SPA on `[...all].vue` ("Page not found"). Quirk: `/404` itself returns 200 (Cloudflare serves `404.html` as an asset).
 - DEPLOY: `pnpm run deploy` = `pnpm build:static && wrangler deploy` (`package.json` scripts). Needs wrangler v4 (devDependency) + `CLOUDFLARE_API_TOKEN` · `CLOUDFLARE_ACCOUNT_ID`.
 - RETIRED: Vercel · Netlify · Railway · Cloudflare Pages · engg.me. NEVER list as live.
 - CI/CD: none; deploy is manual.
@@ -65,6 +66,6 @@ Direction: taste-skill app style "Editorial greeting" (seed 62489967, `.taste-sk
 ## Key decisions
 
 - Static build without Laravel for the demo. WHY: Laravel side is unused by the SPA; a static Worker needs no PHP runtime. `vite.static.config.js:1-2`
-- SPA fallback in Worker assets. WHY: history-mode routes (`/privacy` etc.) must resolve to `index.html`. `wrangler.jsonc`
+- Per-route HTML + `404-page`, not SPA fallback. WHY: SPA fallback answered every unknown URL with 200; `vite.static-routes.js` copies `index.html` to one file per static route from the `vite-plugin-pages` route list (same list as the router, no drift; `tests/js/staticRoutes.test.js` fails if a route has no HTML) plus `404.html`. `wrangler.jsonc`
 - Per-route `document.title`. WHY: SPA ships one `index.html`; each page needs a distinct title for a11y. `resources/js/pageTitles.js:1`
 - Laravel 9 left as is. WHY: separate upgrade → `.backlog/2026-10-31-1346-upgrade-laravel-composer.md`
