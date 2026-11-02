@@ -10,7 +10,7 @@ const mountOptions = { global: { stubs: { RouterLink: RouterLinkStub } } };
 const REPO_URL = "https://github.com/sg208/sg-laravel-vue-vite";
 
 describe("Footer", () => {
-    it("links the three info pages and the GitHub repo", () => {
+    it("links the three info pages and one GitHub icon link", () => {
         const wrapper = mount(Footer, mountOptions);
         const routes = wrapper
             .findAllComponents(RouterLinkStub)
@@ -21,8 +21,14 @@ describe("Footer", () => {
             "Site information",
         );
         expect(routes).toEqual(["/accessibility", "/privacy", "/terms"]);
-        expect(repoLink.text()).toBe("Source on GitHub");
+        expect(wrapper.findAll('a[href*="github.com"]')).toHaveLength(1);
+        expect(repoLink.attributes("aria-label")).toBe("Source code on GitHub");
+        expect(repoLink.text()).toBe("");
         expect(repoLink.attributes("target")).toBeUndefined();
+        expect(repoLink.get("svg").attributes()).toMatchObject({
+            "aria-hidden": "true",
+            focusable: "false",
+        });
     });
 });
 

@@ -16,7 +16,7 @@
 | roles | `resources/js/roles.js` | `countRoles` (boss → developer → designer → intern, unknown last) · `getRoleTone` (role tint classes) |
 | placeholders | `pages/{add,update,delete,login,[...all]}.vue` | `ListHeader` + `components/PlaceholderNotice.vue` |
 | legal pages | `resources/js/pages/{accessibility,privacy,terms}.vue` | wrap `components/LegalPage.vue` (h1 + "Last updated") |
-| footer | `resources/js/components/Footer.vue` | wordmark close + nav "Site information": Accessibility · Privacy · Terms + GitHub repo `https://github.com/sg208/sg-laravel-vue-vite` |
+| footer | `resources/js/components/Footer.vue` | wordmark close + nav "Site information": Accessibility · Privacy · Terms + GitHub icon link (`aria-label` "Source code on GitHub") `https://github.com/sg208/sg-laravel-vue-vite` |
 
 ## Visual design
 
