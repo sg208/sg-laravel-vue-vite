@@ -17,7 +17,7 @@ The live demo is only the Vue front end, built as static files. There is no Lara
 
 The pages live in `resources/js/pages`, components in `resources/js/components`. The wizkid data is in `jsonserver/db.json`.
 
-The site also has Accessibility, Privacy and Terms pages. The footer links to them and to the source on GitHub.
+The site also has Accessibility, Privacy and Terms pages. The footer links to them, plus a small GitHub icon for the source.
 
 ## Design
 
