@@ -7,21 +7,22 @@
 
 - WHAT: "Wizkid Manager 2000" demo: Laravel 9 shell serving a Vue 3 SPA (list/add/update/delete wizkids) with Tailwind; data from a local JSON Server mock (`README.md:1-5`).
 - STATE: JS side updated 2026-10-31 (Vite 8, Vue 3.5, Tailwind 4, pnpm); Laravel 9 untouched (`.backlog/`); Laravel side is the stock skeleton (`routes/web.php` serves `welcome` view only, no wizkid API).
-- BRANCHES: `main` (default) · `develop` (work branch) · `master` (legacy, kept) · remote `versiontwo`. PR/branch convention: no enforced convention observed.
+- BRANCHES: `develop` (work branch) · `main` (release target) · remote-only `versiontwo`. `master` absent (local and `origin`); `origin/HEAD` symref still names `origin/master` (stale). PR/branch convention: no enforced convention observed.
 
 ## Commands
 
-- `source ~/.nvm/nvm.sh && nvm use 24` — Node 24 (`.node-version:1`) before pnpm
-- `pnpm install` — JS deps (`pnpm-lock.yaml`, `packageManager` in `package.json`)
-- `pnpm dev` — Vite dev server
-- `pnpm dev2` — JSON Server :8080 + Vite (both local devDeps)
-- `pnpm build` — Vite production build to `public/build` (gitignored)
-- `pnpm build:static` — SPA without Laravel → `dist/` + `dist/api/wizkid.json` (`vite.static.config.js`) <!-- enggflo -->
-- `pnpm run deploy` — `build:static` + `wrangler deploy`; needs wrangler v4 (devDependency) + `CLOUDFLARE_API_TOKEN` · `CLOUDFLARE_ACCOUNT_ID` (names only) <!-- enggflo -->
-- `pnpm test` — Vitest (`vitest.config.js`, `tests/js/*.test.js`)
-- `pnpm audit --audit-level high` — must report no high/critical
-- `composer install && php artisan serve` — Laravel on :8000 (composer not verified in this env)
-- `vendor/bin/phpunit` — PHP example tests (`phpunit.xml`)
+- `source ~/.nvm/nvm.sh && nvm use 24` — Node 24 (`.node-version:1`) before pnpm · verified 2026-11-08
+- `pnpm install` — JS deps (`pnpm-lock.yaml`, `packageManager` in `package.json`) · unverified: not run (side effect)
+- `pnpm dev` — Vite dev server · unverified: long-running server
+- `pnpm dev2` — JSON Server :8080 + Vite (both local devDeps) · unverified: long-running server
+- `pnpm build` — Vite production build to `public/build` (gitignored) · unverified: writes build output
+- `pnpm build:static` — SPA without Laravel → `dist/` + `dist/api/wizkid.json` + `favicon.svg` + `_headers` from `resources/static/` (`vite.static.config.js`) · unverified: writes `dist/` <!-- enggflo -->
+- `pnpm run deploy` — `build:static` + `wrangler deploy`; needs wrangler v4 (devDependency) + `CLOUDFLARE_API_TOKEN` · `CLOUDFLARE_ACCOUNT_ID` (names only) · unverified: external deploy <!-- enggflo -->
+- `pnpm test` — Vitest (`vitest.config.js`, `tests/js/*.test.js`) · verified 2026-11-08: 6 files, 36 tests passed
+- `pnpm audit --audit-level high` — must report no high/critical · unverified: network call, not run
+- `composer install && php artisan serve` — Laravel on :8000 · unverified: `composer` not on PATH, no `vendor/`
+- `vendor/bin/phpunit` — PHP stub tests (`phpunit.xml`) · unverified: no `vendor/`; `php` present at `/opt/homebrew/bin/php`
+- `/verify [filter]` — `.opencode/commands/verify.md` → `pnpm test` gate <!-- enggflo -->
 
 ## Architecture
 
@@ -46,17 +47,19 @@
 |---|---|
 | runner | Vitest + @vue/test-utils + happy-dom (JS) · PHPUnit (PHP) |
 | command | `pnpm test` · `vendor/bin/phpunit` |
-| conventions | `tests/js/*.test.js` (composables, components with `RouterLinkStub`) · `tests/Unit|Feature/*Test.php` (Laravel examples) |
-| levels | unit ✓ · integration ✗ · e2e ✗ |
+| conventions | `tests/js/*.test.js` (composables, components with `RouterLinkStub`) · `tests/Unit|Feature/*Test.php` (Laravel stubs: `tests/Feature/ExampleTest.php:12-19` asserts `/` → 200 only) |
+| levels | unit ✓ (Vitest) · integration ✗ (PHP stub only) · e2e ✗ |
 | enforced_by | unverified (no CI) |
 
 ## Gotchas
 
-- `resources/js/bootstrap.js` — not imported by `app.js`; axios/lodash unused at runtime.
+- `resources/js/bootstrap.js` was removed (Laravel's axios/lodash boot file); the SPA uses `fetch` only.
 - `package.json` `"type": "module"` — config files are ESM; a CommonJS config needs `.cjs`.
 - `package.json` `pnpm.overrides` — patched rollup 2, nanoid 3, picomatch 2 for audit; drop once upstream deps move.
 - pnpm does not hoist transitive packages: import from `vue`, never `@vue/runtime-core`.
 - `vitest.config.js` — separate from `vite.config.js`; skips the Laravel plugin and file routes.
+- `.enggflo/` is gitignored (`.gitignore:31`) — `.enggflo/learning.md` and `.enggflo/brain.md` are local-only; `AGENTS.md` pointers resolve only in this checkout.
+- `.enggflo/brain.md` — pointer at line 4 (`AGENTS.md:4`) has no file yet.
 
 - LICENSE: MIT (`LICENSE`, `package.json`, `composer.json`).
 
@@ -66,6 +69,10 @@
 |---|---|
 | repeated mistake or non-obvious fix | `/enggflo-init "<mistake>"` → `.enggflo/learning.md` |
 | dependency review | `/enggflo-maintenance` → `.backlog/`; done items → `.done/` |
+| unit test gate | `/verify [filter]` → `pnpm test` |
+| colours, tokens, focus, fonts, dark mode, layout | skill `wizkid-design-tokens` |
+| new page or route, external URL, a11y or privacy copy | skill `wizkid-route-and-legal-sync` · agent `legal-a11y-auditor` (read-only) |
+| build, preview, deploy, hosting | skill `wizkid-static-deploy` |
 
 ## References <!-- enggflo -->
 

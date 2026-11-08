@@ -5,7 +5,7 @@
 - Components → PascalCase `.vue` in `resources/js/components/` (`WizkidItem.vue`, `LegalPage.vue`); auto-imported, no manual import.
 - Pages → lowercase `.vue` in `resources/js/pages/`; file name = route path (`privacy.vue` → `/privacy`); catch-all `[...all].vue`.
 - Composables → `useX.js` in `resources/js/composables/`, default export.
-- Constants → UPPER_SNAKE (`REPO_URL` `Footer.vue:22`, `PAGE_TITLES` `pageTitles.js:4`).
+- Constants → UPPER_SNAKE (`REPO_URL` `Footer.vue:46`, `PAGE_TITLES` `pageTitles.js:4`).
 - Tests → `tests/js/<subject>.test.js` (Vitest) · `tests/Unit|Feature/*Test.php` (PHPUnit).
 
 ## Style
@@ -17,7 +17,7 @@
 
 ## Error handling
 
-- Fetch failure → catch sets user-facing `errorMsg` string + `isFetching=false` (`useWizkid.js:20-23`); page renders it in `role="alert"` (`index.vue:9-11`).
+- Fetch failure → catch sets user-facing `errorMsg` string (`useWizkid.js:17-18`), `finally` sets `isFetching=false` (`useWizkid.js:19-21`); page renders it in `role="alert"` (`index.vue:14-18`).
 
 ## Accessibility
 
