@@ -7,7 +7,11 @@ hooks:
     - matcher: "Bash"
       hooks:
         - type: command
-          command: "node ~/.config/enggflo/guard.mjs bash '[[\"*\",\"deny\"],[\"git diff *\",\"allow\"],[\"git log *\",\"allow\"],[\"ls *\",\"allow\"],[\"grep *\",\"allow\"]]' || exit 2"
+          command: "node ~/.config/enggflo/guard.mjs bash '[[\"*\",\"deny\"],[\"git diff *\",\"allow\"],[\"git log *\",\"allow\"],[\"*.env*\",\"deny\"]]' || exit 2"
+    - matcher: "Bash|Read|Grep|Glob"
+      hooks:
+        - type: command
+          command: "node ~/.config/enggflo/guard.mjs secrets || exit 2"
 maxTurns: 20
 ---
 <!-- enggflo:generated from .opencode/agents/legal-a11y-auditor.md — edit the source, not this file -->

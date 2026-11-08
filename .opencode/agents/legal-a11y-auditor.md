@@ -11,8 +11,10 @@ permissions:
   - { action: shell, resource: "*", effect: deny }
   - { action: shell, resource: "git diff *", effect: allow }
   - { action: shell, resource: "git log *", effect: allow }
-  - { action: shell, resource: "ls *", effect: allow }
-  - { action: shell, resource: "grep *", effect: allow }
+  - { action: shell, resource: "*--output*", effect: deny }
+  - { action: shell, resource: "*--no-index*", effect: deny }
+  - { action: shell, resource: "*--ext-diff*", effect: deny }
+  - { action: shell, resource: "*.env*", effect: deny }
   - { action: webfetch, resource: "*", effect: deny }
   - { action: subagent, resource: "*", effect: deny }
 ---

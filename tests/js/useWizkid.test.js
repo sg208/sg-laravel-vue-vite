@@ -25,6 +25,7 @@ describe("useWizkid", () => {
 
         expect(fetchMock).toHaveBeenCalledWith(
             "http://localhost:8080/api/wizkid",
+            { signal: expect.any(AbortSignal) },
         );
         expect(wizkidsData.value).toEqual(wizkids);
         expect(errorMsg.value).toBe("");
@@ -65,6 +66,36 @@ describe("useWizkid", () => {
         await getWizkidsData();
 
         expect(wizkidsData.value).toBeUndefined();
+        expect(errorMsg.value).toBe(
+            "Something is wrong, please try again later.",
+        );
+        expect(isFetching.value).toBe(false);
+    });
+
+    it("gives up and shows an error when the request times out", async () => {
+        const controller = new AbortController();
+        const timeoutSpy = vi
+            .spyOn(AbortSignal, "timeout")
+            .mockReturnValue(controller.signal);
+        vi.stubGlobal(
+            "fetch",
+            vi.fn(
+                (url, { signal }) =>
+                    new Promise((resolve, reject) => {
+                        signal.addEventListener("abort", () =>
+                            reject(signal.reason),
+                        );
+                    }),
+            ),
+        );
+
+        const { isFetching, errorMsg, getWizkidsData } = useWizkid();
+        const pending = getWizkidsData();
+        controller.abort(new DOMException("timed out", "TimeoutError"));
+        await pending;
+
+        expect(timeoutSpy).toHaveBeenCalledWith(10000);
+        timeoutSpy.mockRestore();
         expect(errorMsg.value).toBe(
             "Something is wrong, please try again later.",
         );
