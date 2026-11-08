@@ -42,7 +42,7 @@ describe("index page", () => {
         const wizkids = [{ _id: "1", name: "Graham Heath", role: "intern" }];
         vi.stubGlobal(
             "fetch",
-            vi.fn(async () => ({ json: async () => wizkids })),
+            vi.fn(async () => ({ ok: true, json: async () => wizkids })),
         );
         const wrapper = mount(IndexPage, mountOptions);
         await flushPromises();
@@ -59,7 +59,7 @@ describe("index page", () => {
     it("says so when the list is empty", async () => {
         vi.stubGlobal(
             "fetch",
-            vi.fn(async () => ({ json: async () => [] })),
+            vi.fn(async () => ({ ok: true, json: async () => [] })),
         );
         const wrapper = mount(IndexPage, mountOptions);
         await flushPromises();

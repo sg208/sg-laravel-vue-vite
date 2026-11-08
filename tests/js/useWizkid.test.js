@@ -16,7 +16,7 @@ describe("useWizkid", () => {
     });
 
     it("stores the wizkids returned by the API", async () => {
-        const fetchMock = vi.fn(async () => ({ json: async () => wizkids }));
+        const fetchMock = vi.fn(async () => ({ ok: true, json: async () => wizkids }));
         vi.stubGlobal("fetch", fetchMock);
 
         const { isFetching, wizkidsData, errorMsg, getWizkidsData } =
@@ -37,6 +37,27 @@ describe("useWizkid", () => {
             vi.fn(async () => {
                 throw new Error("offline");
             }),
+        );
+
+        const { isFetching, wizkidsData, errorMsg, getWizkidsData } =
+            useWizkid();
+        await getWizkidsData();
+
+        expect(wizkidsData.value).toBeUndefined();
+        expect(errorMsg.value).toBe(
+            "Something is wrong, please try again later.",
+        );
+        expect(isFetching.value).toBe(false);
+    });
+
+    it("shows an error message when the API answers with a non-OK status", async () => {
+        vi.stubGlobal(
+            "fetch",
+            vi.fn(async () => ({
+                ok: false,
+                status: 500,
+                json: async () => ({ error: "boom" }),
+            })),
         );
 
         const { isFetching, wizkidsData, errorMsg, getWizkidsData } =

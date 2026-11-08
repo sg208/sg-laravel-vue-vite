@@ -30,9 +30,14 @@ Direction: taste-skill app style "Editorial greeting" (seed 62489967, `.taste-sk
 | `--muted` | `#595956` | `#b0b0aa` | secondary lines |
 | `--accent` | `#1b6e66` | `#6cc5b8` | primary button, mark, focus |
 | `--negative` | `#a3221a` | `#ff9b8f` | Delete, error |
+| `--raised` | `#ffffff` | `#262724` | placeholder notice, raised controls |
+| `--control` | `#8a8a85` | `#8d8d87` | control borders, underlines |
+| `--accent-ink` | `#ffffff` | `#0b1f1c` | text on accent |
+| `--accent-hover` | `#155851` | `#8ad3c8` | accent hover |
+| `--focus` | `#1b6e66` | `#8ad3c8` | `:focus-visible` outline |
 | `--role-{boss,developer,designer,intern}-{bg,ink}` | pale tints | deep tints | role tags (identity, not data) |
 
-- Tokens: `resources/css/app.css` `:root` + `@media (prefers-color-scheme: dark)`; mapped to Tailwind via `@theme inline` (`bg-surface`, `text-ink`, `text-muted`, `bg-accent`, ...).
+- Tokens: `resources/css/app.css:14-32` `:root` + `:37-55` `@media (prefers-color-scheme: dark)`; mapped to Tailwind via `@theme inline` `:62-72` (`bg-surface`, `text-ink`, `text-muted`, `bg-accent`, ...).
 - Type: Instrument Serif 400 for h1 + footer wordmark (48px); Instrument Sans 400/500/600 elsewhere. Self-hosted via `@fontsource/instrument-sans` + `@fontsource/instrument-serif` (latin subsets, imported in `resources/js/app.js`). No font CDN.
 - Layout: centred 1100px column, 16px gutter phone / 24px ≥640px; panels radius 22px; controls fully round.
 - List row: CSS grid `56px | name+role | contact | actions` at ≥768px; stacks to 2 columns below; `min-w-0` + `overflow-wrap:anywhere` → no sideways scroll at 320px.
@@ -43,7 +48,7 @@ Direction: taste-skill app style "Editorial greeting" (seed 62489967, `.taste-sk
 | build | config | output | consumer |
 |---|---|---|---|
 | Laravel | `vite.config.js` (`laravel-vite-plugin`) | `public/build` | `php artisan serve` |
-| static demo | `vite.static.config.js` + root `index.html` + `vite.static-routes.js` | `dist/` + `dist/api/wizkid.json` + one `<route>.html` per static route + `404.html` | Cloudflare Worker |
+| static demo | `vite.static.config.js` + root `index.html` + `vite.static-routes.js` | `dist/` + `dist/api/wizkid.json` + `favicon.svg` + `_headers` + one `<route>.html` per static route + `404.html` | Cloudflare Worker |
 | tests | `vitest.config.js` | — | `pnpm test` (happy-dom) |
 
 ## Data flow
@@ -59,6 +64,7 @@ Direction: taste-skill app style "Editorial greeting" (seed 62489967, `.taste-sk
 - LIVE: https://sg-laravel-vue-vite.engg.app — Cloudflare Worker with static assets (`wrangler.jsonc`).
 - `wrangler.jsonc` — `assets.directory=dist` · `html_handling=auto-trailing-slash` · `not_found_handling=404-page` · custom domain route · `workers_dev=false` · `preview_urls=false`.
 - STATUS CODES: real routes 200 (`/add` serves `add.html`; `/add/` and `/add.html` 307 → `/add`); any other URL → `dist/404.html` with HTTP 404, which boots the SPA on `[...all].vue` ("Page not found"). Quirk: `/404` itself returns 200 (Cloudflare serves `404.html` as an asset).
+- `dist/_headers` (from `resources/static/_headers`): nosniff, referrer, frame; `/assets/*` immutable.
 - DEPLOY: `pnpm run deploy` = `pnpm build:static && wrangler deploy` (`package.json` scripts). Needs wrangler v4 (devDependency) + `CLOUDFLARE_API_TOKEN` · `CLOUDFLARE_ACCOUNT_ID`.
 - RETIRED: Vercel · Netlify · Railway · Cloudflare Pages · engg.me. NEVER list as live.
 - CI/CD: none; deploy is manual.

@@ -12,6 +12,7 @@ const useWizkid = () => {
     const getWizkidsData = async () => {
         try {
             const response = await fetch(WIZKID_API_URL);
+            if (!response.ok) throw new Error(`HTTP ${response.status}`);
             wizkidsData.value = await response.json();
             errorMsg.value = "";
         } catch {

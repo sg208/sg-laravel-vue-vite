@@ -1,5 +1,6 @@
 // Static demo build: the Vue SPA without Laravel, served by a Cloudflare Worker.
 // Wizkid data comes from jsonserver/db.json, emitted as dist/api/wizkid.json.
+// resources/static/ (favicon, _headers) is copied into dist/.
 import { readFileSync } from "node:fs";
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
@@ -24,7 +25,7 @@ const emitWizkidJson = () => ({
 });
 
 export default defineConfig({
-    publicDir: false,
+    publicDir: "resources/static",
     define: {
         "import.meta.env.VITE_WIZKID_API_URL": JSON.stringify("/api/wizkid.json"),
     },

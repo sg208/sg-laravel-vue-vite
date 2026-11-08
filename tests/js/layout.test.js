@@ -34,8 +34,19 @@ const mountAt = async (path) => {
     return { wrapper, router };
 };
 
+const pagePaths = [
+    "/accessibility",
+    "/privacy",
+    "/terms",
+    "/add",
+    "/update",
+    "/delete",
+    "/login",
+    "/nope",
+];
+
 describe("App layout", () => {
-    it.each(["/accessibility", "/privacy", "/terms", "/add", "/update", "/delete", "/login", "/nope"])(
+    it.each(pagePaths)(
         "%s has one h1, the landmarks and the footer links",
         async (path) => {
             const { wrapper } = await mountAt(path);

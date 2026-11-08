@@ -47,7 +47,9 @@ const { isFetching, getWizkidsData, wizkidsData, errorMsg } = useWizkid();
 const wizkidCount = computed(() => wizkidsData.value?.length ?? 0);
 
 const summaryLine = computed(() => {
-    if (isFetching.value || errorMsg.value) return "Everyone on the team, with their role and how to reach them.";
+    if (isFetching.value || errorMsg.value) {
+        return "Everyone on the team, with their role and how to reach them.";
+    }
     const noun = wizkidCount.value === 1 ? "person" : "people";
     return `${wizkidCount.value} ${noun} on the team, with their role and how to reach them.`;
 });
